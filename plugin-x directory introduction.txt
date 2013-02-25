@@ -1,0 +1,37 @@
+plugin-x 目录说明：
+
+--+ plugin-x
+  |
+  |--+ protocols                        # plugin-x 项目框架基础逻辑代码
+  |  |
+  |  |--+ include                           # plugin管理器与协议基类声明
+  |  |  | ProtocolAnalytics.h                   # 数据统计插件协议声明
+  |  |  | ProtocolIAP.h                         # IAP 功能插件协议声明
+  |  |
+  |  |--+ platform                          # plugin protocol 基类在各平台下的实现
+  |  |  |--+ android
+  |  |  |--+ ios
+  |  |
+  |  |--+ proj.android                      # android 工程
+  |  |--+ proj.ios                          # ios 工程
+  |  |
+  |  |--- PluginManager.cpp                 # plugin manager 的实现
+  |  |--- RegisterPlugin.cpp                # 自动注册插件的实现
+  |
+  |--+ samples                          # 插件的示例相关文件
+  |  |
+  |  |--+ cocos2dx                          # 示例工程所依赖的 cocos2d-x 引擎目录
+  |  |--+ HelloAnalytics                    # Analytics 数据统计插件的示例工程
+  |  |--+ HelloIAP                          # IAP 插件的示例工程
+  |
+  |--+ tools                            # 插件一键编译相关的工具
+  |  |
+  |  |--+ android                           # android 编译需要使用的工具
+  |  |  |--- buid_common.xml                    # 插件的 android 工程 ant 编译的通用配置
+  |  |
+  |  |--- checkEnvironment.sh               # 检查编译环境的 shell 脚本
+  |  |--- publish.sh                        # 插件一键编译的入口 shell 脚本
+  |  |--- publishPlugin.sh                  # 被 publish.sh 使用到的编译一个插件工程的脚本
+  |  |--- genPrebuildMK.sh                  # 生成以 .a 形式链接插件 C++ 代码的 mk 文件
+  |
+  |--+ [other dirs]                     # 其他目录，每个目录对应一个插件工程

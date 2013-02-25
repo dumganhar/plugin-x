@@ -1,0 +1,120 @@
+h2. 插件开发步骤：
+
+h3. 插件目录结构说明：
+
+--+ [插件名]
+  |
+  |--+ include                  # 插件接口类的定义头文件
+  |
+  |--+ platform                 # 插件接口在各个平台下的实现
+  |  |--+ android
+  |  |--+ ios
+  |
+  |--+ proj.android             # 插件的 android 工程目录
+  |
+  |--+ proj.ios                 # 插件的 ios 工程目录
+  |
+
+注：请尽量保持这样的目录结构，因为插件的自动编译对目录结构有依赖
+
+h3. 插件类的声明：
+
+# 在 include 目录下放置包含插件类声明的头文件。
+# 声明的类需要根据不同的功能继承不同的 protocol 基类。如：flurry 中的 AnalyticsFlurry 类从 ProtocolAnalytics 继承
+# 在插件类的声明中，包含的内容有：
+    #* PLUGIN_REGISTER_DECL([插件类名])
+    #* 继承自基类的虚接口声明
+    #* 插件需要实现的自定义接口声明
+# 特别注意：插件类不允许声明 public 的构造函数，插件类的实例化过程由 PluginManager 管理。
+
+h3. 插件的实现：
+
+插件可能需要有多个平台的实现，这里对插件的实现内容按照平台进行划分：
+
+# android 平台的实现：
+#* C++ 部分
+    #** 在插件的 init 函数中需要调用 PluginUtils::initJavaPlugin 接口初始化 java 层的对象。
+    第一个参数使用 this，第二个参数为 java 层对应的类名（需要有包名），如：
+    <pre><code class="c">
+    bool AnalyticsFlurry::init()
+    {
+    	return PluginUtils::initJavaPlugin(this, "org.cocos2dx.plugin.AnalyticsFlurry");
+    }
+    </code></pre>
+    #** 实现继承自基类的虚接口：
+    由于在 android 平台下，protocol 基类已经实现了这些虚接口的 jni 交互。所以如果没有特别需求，这些虚接口的实现中直接调用基类的相应接口即可。如：
+    <pre><code class="c">
+    void AnalyticsFlurry::logTimedEventBegin(const char* eventId)
+    {
+    	ProtocolAnalytics::logTimedEventBegin(eventId);
+    }
+    </code></pre>
+    #** 实现插件自定义的接口：不同的插件根据需要，可以实现自定义的接口。
+
+
+#* Java 部分
+    Java 部分主要在 proj.android 目录下实现。android 工程目录下的关键[文件/文件夹]用途介绍：
+    --+ proj.android
+      |--+ jni                      # 用于 ndk 编译 C++ 代码的配置文件目录
+      |  |--- Android.mk                # ndk 编译的配置文件
+      |  |--- Application.mk
+      |
+      |--+ src                      # 插件的 java 代码实现
+      |--+ sdk                      # 此目录存放插件所依赖的第三方库文件
+      |
+      |--- build_native.sh          # 用于 ndk 编译 C++ 代码的脚本
+      |--- build.xml                # 用于对 android 工程进行 ant 编译的配置文件
+    #** 以上列出的文件中，sdk目录，build_native.sh 与 build.xml 在插件的一键编译过程中会被用到。
+    #** 插件的 android 工程需要依赖 protocols 目录下的 proj.android 工程
+    #** 与 C++ 相对应的 java 类，需要实现 protocols 的 java 层定义的相应功能的 interface。如：
+        public class AnalyticsFlurry implements InterfaceAnalytics
+    #** java 类需要实现一个 带有 ﻿Context 参数的构造函数，该函数在插件初始化时会被调用。
+    #** 另外，插件需要根据实际需要实现与 C++ 层对应的 java 接口。
+
+
+# ios 平台的实现
+
+
+# 特别注意：
+无论哪个平台，在插件类实现的文件中（.cpp 或 .mm 文件），需要添加
+    PLUGIN_REGISTER_IMPL([类名])
+这句代码与声明中的 PLUGIN_REGISTER_DECL 相对应，用于插件的自动注册。
+
+h3. 插件的编译：
+
+在 plugin-x 中，实现了用于一键编译插件的 shell 脚本。（目前只支持 android 平台的一键编译）
+通过该 shell 脚本，可以很方便的将 plugin-x 下的所有插件编译成库，以供游戏开发者使用。
+下面就简单介绍一下插件开发者使用一键编译的步骤。
+
+# 环境要求：
+#* ant 工具，到 ant 官网下载：http://ant.apache.org/
+#* 如果是 windows 平台，需要安装 cygwin 环境，并在 cygwin 环境中运行一键编译脚本
+#* android sdk 与 android ndk
+
+# 一键编译插件的要求：
+#* 按照之前介绍的目录结构来调整插件工程目录
+#* proj.android 目录下的 build.xml 文件中，需要将 project name 改为插件的 android 工程名。
+#* proj.android/jni 目录下的 Android.mk 与 Application.mk 文件，需要修改 module name 以及需要编译的 c/c++ 源码文件。
+
+# 修改一键编译脚本：在 tools/publish.sh 脚本中，调整 plugins 这个参数值，增加插件目录名。
+# 执行 publish.sh 脚本进行编译。（Mac 下在终端执行，windows 下在 cygwin 环境中执行）
+#* 第一次执行该脚本时，会提示开发者输入几个环境参数（android sdk目录，ndk 目录以及 ant 安装目录）
+#* 在 cygwin 环境下，输入环境参数时请以 /cygdrive/x/ 的格式表示盘符。
+#* 当开发者的环境参数发生变化时，可以手动修改 tools 目录下的 environment.sh 脚本进行调整；
+或者删除该脚本，再次执行 publish.sh，即可再次输入环境参数。
+
+# 查看编译结果
+#* 在编译过程中，可以从脚本执行时的输出内容查看是否存在问题。
+#* 当编译成功后，会在 plugin-x 的根目录下生成一个 publish 目录。该目录下的文件结构为：
+--+ publish
+  |--+ protocols                        # plugin-x 框架库与头文件
+  |  |--+ include                           # 插件以及游戏可能用到的头文件
+  |  |--+ android                           # 插件框架的 android 平台实现
+  |  |  |--- *.h                            # 提供给各插件的 android 平台实现的头文件（主要是 jni 交互部分）
+  |  |  |--- libPluginProtocolStatic.a      # 游戏开发者需要链接的 C++ 静态库
+  |  |  |--- libPluginProtocol.jar          # 游戏开发者需要链接的 java 库
+  |
+  |--+ flurry                           # 一个插件实例，结构与 protocols 目录相同
+  |  |--+ include
+  |  |--+ android
+
