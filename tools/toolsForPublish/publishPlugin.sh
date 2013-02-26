@@ -43,12 +43,18 @@ pushd ${ANDROID_PROJ_DIR}
 #check local.properties file
 LOACL_FILE_NAME=local.properties
 if [ -f ${LOACL_FILE_NAME} ]; then
-    DEFINED_SDK_DIR=`cat ./${LOACL_FILE_NAME} | grep sdk.dir= `
+    DEFINED_SDK_DIR=`grep sdk.dir= ./${LOACL_FILE_NAME}`
     if [ -z "${DEFINED_SDK_DIR}" ]; then
-        echo "sdk.dir="${INPUT_SDK_PATH} >> ${LOACL_FILE_NAME}
+        echo "sdk.dir=${INPUT_SDK_PATH}" >> ${LOACL_FILE_NAME}
+    fi
+    
+    DEFINED_PLUGIN_DIR=`grep plugin.dir= ./${LOACL_FILE_NAME}`
+    if [ -z "${DEFINED_PLUGIN_DIR}" ]; then
+        echo "plugin.dir=${PLUGIN_ROOT}" >> ${LOACL_FILE_NAME}
     fi
 else
-    echo "sdk.dir="${INPUT_SDK_PATH} > ${LOACL_FILE_NAME}
+    echo "sdk.dir=${INPUT_SDK_PATH}" > ${LOACL_FILE_NAME}
+    echo "plugin.dir=${PLUGIN_ROOT}" >> ${LOACL_FILE_NAME}
 fi
 
 #invoke ant build of plugin

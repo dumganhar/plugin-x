@@ -1,9 +1,8 @@
 # set params
-export PLUGIN_ANDROID_ROOT=$(cd "$(dirname "$0")"; pwd)
-
+PLUGIN_ANDROID_ROOT=$(cd "$(dirname "$0")"; pwd)
 
 # build
-"$ANDROID_NDK_ROOT"/ndk-build -C $PLUGIN_ANDROID_ROOT
+"$ANDROID_NDK_ROOT"/ndk-build -C "$PLUGIN_ANDROID_ROOT"
 
 echo
 if [ "0" != "$?" ]; then

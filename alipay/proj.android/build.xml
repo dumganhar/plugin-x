@@ -87,5 +87,5 @@
          in order to avoid having your file be overridden by tools such as "android update project"
     -->
     <!-- version-tag: 1 -->
-    <import file="../../tools/android/build_common.xml" />
+    <import file="${plugin.dir}/tools/android/build_common.xml" />
 </project>
