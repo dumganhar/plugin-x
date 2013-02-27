@@ -24,7 +24,7 @@ source ./config.sh
 
 # add protocols name to build
 export NEED_PUBLISH=${PROTOCOL_NAME}:$2
-#### ./publish.sh ${NEED_PUBLISH}
+./publish.sh
 
 # Modify mk file
 MK_FILE_PATH="${GAME_PROJECT_DIR}"/jni/Android.mk
@@ -38,7 +38,9 @@ python ${SHELL_DIR}/modifyProject.py "${PROJECT_FILE_PATH}" "${TARGET_ROOT}"
 CLASSPATH_FILE="${GAME_PROJECT_DIR}"/.classpath
 python ${SHELL_DIR}/modifyClassPath.py "${CLASSPATH_FILE}" "${NEED_PUBLISH}" "${TARGET_ROOT}"
 
-# todo Modify AndroidManifest.xml file (add permission & add activity info)
+# Modify AndroidManifest.xml file (add permission & add activity info)
+MANIFEST_FILE="${GAME_PROJECT_DIR}"/AndroidManifest.xml
+python ${SHELL_DIR}/modifyManifest.py "${MANIFEST_FILE}" "$2" "${TARGET_ROOT}"
 
 popd
 

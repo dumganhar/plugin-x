@@ -73,23 +73,28 @@ ADNROID_SOURCE_DIR=${PLUGIN_ROOT}/${plugin_name}/platform/android
 if [ -d ${ADNROID_SOURCE_DIR} ]; then
     HAVE_HEADER_FILE=`find ${ADNROID_SOURCE_DIR} -name "*.h"`
     if [ -n "${HAVE_HEADER_FILE}" ]; then
-        cp -rf ${ADNROID_SOURCE_DIR}/*.h ${TARGET_DIR}/android
+        cp -rf ${ADNROID_SOURCE_DIR}/*.h "${TARGET_DIR}/android"
     fi
 fi
 
 #invoke ndk build for plugin project
-if [ -f ${ANDROID_PROJ_DIR}/build_native.sh ]; then
+if [ -f "${ANDROID_PROJ_DIR}/build_native.sh" ]; then
     ./build_native.sh
     LIB_FILE="$(getLibraryFileName)"
-    cp -rf ${ANDROID_PROJ_DIR}/obj/local/armeabi/${LIB_FILE} ${TARGET_DIR}/android
+    cp -rf "${ANDROID_PROJ_DIR}/obj/local/armeabi/${LIB_FILE}" "${TARGET_DIR}/android"
 fi
 
 #generate mk file for prebuild
 ${PLUGIN_ROOT}/tools/toolsForPublish/genPrebuildMK.sh ${ANDROID_PROJ_DIR}/jni/Android.mk ${TARGET_DIR}/android/Android.mk
 
 #copy android depend on project to publish directory
-if [ -d ${ADNROID_SOURCE_DIR}/DependProject ]; then
-    cp -rf ${ADNROID_SOURCE_DIR}/DependProject ${TARGET_DIR}/android
+if [ -d "${ADNROID_SOURCE_DIR}/DependProject" ]; then
+    cp -rf "${ADNROID_SOURCE_DIR}/DependProject" "${TARGET_DIR}/android"
+fi
+
+#copy ForManifest.xml file to publish directory
+if [ -f "${ANDROID_PROJ_DIR}/ForManifest.xml" ]; then
+    cp -rf "${ANDROID_PROJ_DIR}/ForManifest.xml" "${TARGET_DIR}/android"
 fi
 
 popd

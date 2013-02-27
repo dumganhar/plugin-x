@@ -3,9 +3,6 @@ MK_FILE_PATH=$1
 TEMP_FILE_PATH=$(dirname ${MK_FILE_PATH})/temp.txt
 SELECTED_PLUGINS=(${NEED_PUBLISH//:/ })
 
-echo "Android.mk file path : ${MK_FILE_PATH}"
-echo "Add static libs for : ${SELECTED_PLUGINS[@]}"
-
 ###############################
 # functions used
 ###############################
