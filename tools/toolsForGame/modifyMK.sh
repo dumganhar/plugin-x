@@ -27,7 +27,7 @@ if [ -f ${MK_FILE_PATH} ]; then
     for plugin_name in ${SELECTED_PLUGINS[@]}
     do
         PLUGIN_MODULE_NAME="$(getStaticModuleName ${plugin_name})"
-        HAVE_PLUGIN=`grep "^\([ ]*[^#]*\)${PLUGIN_MODULE_NAME}" ${MK_FILE_PATH}`
+        HAVE_PLUGIN=`grep "^\([\s]*[^#]*\)${PLUGIN_MODULE_NAME}" ${MK_FILE_PATH}`
         if [ "${HAVE_PLUGIN}" ]; then
             # already have this plugin
             echo "Plugin ${plugin_name} have added in Android.mk"
@@ -54,7 +54,7 @@ if [ -f ${MK_FILE_PATH} ]; then
             {
                 ModuleStr="'"$ADD_MODULE_STR"'";
                 ImportStr="'"$ADD_IMPORT_STR"'";
-                if (match($0, /^\([ ]*[^#]*\)LOCAL_WHOLE_STATIC_LIBRARIES/) && ! PROC1)
+                if (match($0, /^([\s]*[^#]*)LOCAL_WHOLE_STATIC_LIBRARIES/) && ! PROC1)
                 {
                     PROC1 = 1;
                     if (match($0, /\\$/))
@@ -67,7 +67,7 @@ if [ -f ${MK_FILE_PATH} ]; then
                         printf "%s\n",ModuleStr;
                     }
                 } else
-                if (match($0, /^\([ ]*[^#]*\)call[ ]*import-module/) && ! PROC2)
+                if (match($0, /^([\s]*[^#]*)call[\s]*import-module/) && ! PROC2)
                 {
                     printf $0;
                     split(ImportStr,arr,":")
@@ -77,6 +77,12 @@ if [ -f ${MK_FILE_PATH} ]; then
                         printf "%s\n",oneStr;
                     }
                     PROC2 = 1;
+                } else
+                if (match($0, /^([\s]*[^#]*)include[ \t]+\$\(BUILD_(SHARED|STATIC)_LIBRARY\)/) && ! PROC1)
+                {
+                    PROC1 = 1;
+                    printf "\nLOCAL_WHOLE_STATIC_LIBRARIES := %s\n\n",ModuleStr;
+                    printf "%s\n",$0;
                 } else {
                     printf "%s\n",$0;
                 }

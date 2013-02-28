@@ -22,25 +22,31 @@ pushd ${SHELL_DIR}/../
 
 source ./config.sh
 
-# add protocols name to build
-export NEED_PUBLISH=${PROTOCOL_NAME}:$2
-./publish.sh
-
-# Modify mk file
-MK_FILE_PATH="${GAME_PROJECT_DIR}"/jni/Android.mk
-${SHELL_DIR}/modifyMk.sh "${MK_FILE_PATH}"
-
-# Modify .project file (link publish directory to the game project)
-PROJECT_FILE_PATH="${GAME_PROJECT_DIR}"/.project
-python ${SHELL_DIR}/modifyProject.py "${PROJECT_FILE_PATH}" "${TARGET_ROOT}"
-
-# Modify .classpath file (link jar files for game project)
-CLASSPATH_FILE="${GAME_PROJECT_DIR}"/.classpath
-python ${SHELL_DIR}/modifyClassPath.py "${CLASSPATH_FILE}" "${NEED_PUBLISH}" "${TARGET_ROOT}"
-
-# Modify AndroidManifest.xml file (add permission & add activity info)
-MANIFEST_FILE="${GAME_PROJECT_DIR}"/AndroidManifest.xml
-python ${SHELL_DIR}/modifyManifest.py "${MANIFEST_FILE}" "$2" "${TARGET_ROOT}"
+# check publish directory 
+if [ -d "${TARGET_ROOT}" ]; then
+    # add protocols name to build
+    export NEED_PUBLISH=${PROTOCOL_NAME}:$2
+    
+    # Modify mk file
+    MK_FILE_PATH="${GAME_PROJECT_DIR}"/jni/Android.mk
+    ${SHELL_DIR}/modifyMk.sh "${MK_FILE_PATH}"
+    
+    # Modify .project file (link publish directory to the game project)
+    PROJECT_FILE_PATH="${GAME_PROJECT_DIR}"/.project
+    python ${SHELL_DIR}/modifyProject.py "${PROJECT_FILE_PATH}" "${TARGET_ROOT}"
+    
+    # Modify .classpath file (link jar files for game project)
+    CLASSPATH_FILE="${GAME_PROJECT_DIR}"/.classpath
+    python ${SHELL_DIR}/modifyClassPath.py "${CLASSPATH_FILE}" "${NEED_PUBLISH}" "${TARGET_ROOT}"
+    
+    # Modify AndroidManifest.xml file (add permission & add activity info)
+    MANIFEST_FILE="${GAME_PROJECT_DIR}"/AndroidManifest.xml
+    python ${SHELL_DIR}/modifyManifest.py "${MANIFEST_FILE}" "$2" "${TARGET_ROOT}"
+else
+    echo "PLZ run the publish.sh script first"
+    popd
+    exit 1
+fi
 
 popd
 

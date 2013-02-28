@@ -20,16 +20,6 @@ def getLinkElement():
     
     return ret
 
-def writeFile(path, elem):
-    f = open(path, 'w')
-    if f == None:
-        return
-    
-    root_str = ET.tostring(elem, 'UTF-8')
-    reparse = minidom.parseString(root_str)
-    reparse.writexml(f, '', '\t', '\n', 'UTF-8')
-    f.close()
-
 tree = ET.parse(projFile)
 root = tree.getroot()
 nodeLinkRes = root.find('linkedResources')
@@ -51,4 +41,4 @@ else:
     linkResEle = ET.Element('linkedResources')
     linkResEle.append(getLinkElement())
     root.append(linkResEle)
-    writeFile(projFile, root)
+    tree.write(projFile, 'UTF-8')
