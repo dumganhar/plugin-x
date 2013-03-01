@@ -15,5 +15,15 @@ public class InterfaceIAP {
 		public String getSDKVersion();
 	}
 
-	public static native void nativePayResult(int ret, String msg);
+	public static void payResult(int ret, String msg) {
+		final int curRet = ret;
+		final String curMsg = msg;
+		PluginWrapper.runOnGLThread(new Runnable() {
+			@Override
+			public void run() {
+				nativePayResult(curRet, curMsg);
+			}
+		});
+	}
+	private static native void nativePayResult(int ret, String msg);
 }

@@ -12,15 +12,19 @@ public class PluginWrapper {
 	
 	protected static Context sContext = null;
 	protected static GLSurfaceView sGLSurfaceView = null; 
-	protected static Handler sMainThreadHander = null;
+	protected static Handler sMainThreadHandler = null;
 	private static final String TAG = "PluginWrapper";
 	
 	public static void init(Context context)
 	{
 		sContext = context;
-		if (null == sMainThreadHander) {
-			sMainThreadHander = new Handler();
+		if (null == sMainThreadHandler) {
+			sMainThreadHandler = new Handler();
 		}
+	}
+
+	public static void setGLSurfaceView(GLSurfaceView value) {
+		sGLSurfaceView = value;
 	}
 	
 	protected static boolean initPlugin(String classFullName)
@@ -55,12 +59,16 @@ public class PluginWrapper {
 	}
 	
 	public static void runOnGLThread(Runnable r) {
-		if (null == sGLSurfaceView) return;
-		sGLSurfaceView.queueEvent(r);
+		if (null != sGLSurfaceView) {
+			sGLSurfaceView.queueEvent(r);
+		} else {
+			Log.i(TAG, "runOnGLThread sGLSurfaceView is null");
+			r.run();
+		}
 	}
 
 	public static void runOnMainThread(Runnable r) {
-		if (null == sMainThreadHander) return;
-		sMainThreadHander.post(r);
+		if (null == sMainThreadHandler) return;
+		sMainThreadHandler.post(r);
 	}
 }
