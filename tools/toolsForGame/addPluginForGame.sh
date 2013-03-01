@@ -31,6 +31,10 @@ if [ -d "${TARGET_ROOT}" ]; then
     MK_FILE_PATH="${GAME_PROJECT_DIR}"/jni/Android.mk
     ${SHELL_DIR}/modifyMk.sh "${MK_FILE_PATH}"
     
+    # Modify Application.mk file (add stl & rtti configuration)
+    APP_MK_FILE_PATH="${GAME_PROJECT_DIR}"/jni/Application.mk
+    ${SHELL_DIR}/modifyAppMk.sh "${APP_MK_FILE_PATH}"
+    
     # Modify .project file (link publish directory to the game project)
     PROJECT_FILE_PATH="${GAME_PROJECT_DIR}"/.project
     python ${SHELL_DIR}/modifyProject.py "${PROJECT_FILE_PATH}" "${TARGET_ROOT}"
