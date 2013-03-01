@@ -7,15 +7,6 @@
 	<classpathentry exported="true" kind="lib" path="publish/protocols/android/libPluginProtocol.jar"/>
 	<classpathentry exported="true" kind="lib" path="publish/alipay/android/libPluginAlipay.jar"/>
 	<classpathentry exported="true" kind="lib" path="publish/alipay/android/alipay_plugin.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/chinamobile/android/CMBilling.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/chinamobile/android/libPluginChinaMobile.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/chinatelecom/android/eGameFeeSDK.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/chinatelecom/android/libPluginChinaTelecom.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/chinaunicom/android/libPluginChinaUnicom.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/chinaunicom/android/Multimode_billing_sms.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/punchbox/android/libPluginPunchbox.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/punchbox/android/UserCenter.jar"/>
-	<classpathentry exported="true" kind="lib" path="publish/punchbox/android/YeepayApkPlugin.jar"/>
 	<classpathentry exported="true" kind="lib" path="publish/nd91/android/libPluginNd91.jar"/>
 	<classpathentry exported="true" kind="lib" path="publish/nd91/android/NdComPlatform.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>

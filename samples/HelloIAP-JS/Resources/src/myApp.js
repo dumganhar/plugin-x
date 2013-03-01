@@ -41,8 +41,23 @@ var MyLayer = cc.Layer.extend({
         //////////////////////////////
         // 1. super init first
         this._super();
-        var cmgc = pluginx.PluginManager.getInstance().loadPlugin("IAPChinaMobile");
-        cmgc.setDebugMode(true);
+        var iap = pluginx.PluginManager.getInstance().loadPlugin("IAPAlipay");
+        iap.setDebugMode(true);
+
+        var pAlipayInfo = {};
+
+        var isEmpty = true;
+        for (var i in pAlipayInfo)
+        {
+            isEmpty = false;
+        }
+        if (isEmpty)
+        {
+            cc.log("Developer info is empty. PLZ fill your alipay info to pAlipayInfo)");
+        }
+
+        iap.initDeveloperInfo(pAlipayInfo);
+
 /////////////////////////////
         // 2. add a menu item with "X" image, which is clicked to quit the program
         //    you may modify it.
@@ -57,13 +72,11 @@ var MyLayer = cc.Layer.extend({
                 cc.log("close button was clicked.");
 
                 var protuctInfo = {};
-                protuctInfo["productName"] = "计费点1";
-                protuctInfo["productPrice"] = "0.01";
-                protuctInfo["productDesc"] = "测试计费点";
-                protuctInfo["CMGCSmskey"] = "000";
-                protuctInfo["CMGCRepeated"] = "true";
+                protuctInfo["productName"] = "100金币";
+                protuctInfo["productPrice"] = "0.1";
+                protuctInfo["productDesc"] = "100个金灿灿的游戏币哦";
 
-                cmgc.payForProduct(protuctInfo);
+                iap.payForProduct(protuctInfo);
 
             },this);
         closeItem.setAnchorPoint(cc.p(0.5, 0.5));
