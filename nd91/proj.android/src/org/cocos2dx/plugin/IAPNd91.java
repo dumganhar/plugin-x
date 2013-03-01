@@ -125,7 +125,7 @@ public class IAPNd91 implements IAPAdapter {
 	}
 
 	private static void payResult(int ret, String msg) {
-		InterfaceIAP.nativePayResult(ret, msg);
+		InterfaceIAP.payResult(ret, msg);
 		LogD("Nd91 result : " + ret + " msg : " + msg);
 	}
 

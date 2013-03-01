@@ -312,7 +312,7 @@ public class IAPAlipay implements IAPAdapter {
 	}
 
 	private static void payResult(int ret, String msg) {
-		InterfaceIAP.nativePayResult(ret, msg);
+		InterfaceIAP.payResult(ret, msg);
 		LogD("Alipay result : " + ret + " msg : " + msg);
 	}
 }

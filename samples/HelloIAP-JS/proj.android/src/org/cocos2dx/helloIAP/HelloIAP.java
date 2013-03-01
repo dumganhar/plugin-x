@@ -24,6 +24,7 @@ THE SOFTWARE.
 package org.cocos2dx.helloIAP;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.plugin.PluginWrapper;
 
 import android.os.Bundle;
@@ -33,6 +34,7 @@ public class HelloIAP extends Cocos2dxActivity{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		PluginWrapper.init(this);
+		PluginWrapper.setGLSurfaceView(Cocos2dxGLSurfaceView.getInstance());
 	}
 	
 	static {
