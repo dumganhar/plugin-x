@@ -35,3 +35,17 @@ JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret)
 {
     return jsval_to_TProductInfo(cx, v, ret);
 }
+
+jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret)
+{
+    JSObject *tmp = JS_NewObject(cx, NULL, NULL, NULL);
+    if (!tmp) return JSVAL_NULL;
+
+    for (TProductInfo::iterator it = ret.begin(); it != ret.end(); ++it)
+    {
+        JS_DefineProperty(cx, tmp, it->first.c_str(), std_string_to_jsval(cx, it->second), NULL, NULL, JSPROP_ENUMERATE | JSPROP_PERMANENT);
+    }
+
+    return OBJECT_TO_JSVAL(tmp);
+}
+

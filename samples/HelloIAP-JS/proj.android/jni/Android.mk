@@ -9,7 +9,9 @@ LOCAL_MODULE_FILENAME := libgame
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
                    ../../../../jsbindings/auto/pluginx.cpp \
-                   ../../../../jsbindings/manual/jsb_pluginx_basic_conversions.cpp 
+                   ../../../../jsbindings/manual/jsb_pluginx_basic_conversions.cpp \
+                   ../../../../jsbindings/manual/jsb_pluginx_manual_iap.cpp \
+                   ../../../../jsbindings/manual/jsb_pluginx_extension_registration.cpp
 #                   ../../Classes/HelloWorldScene.cpp \
 #                   ../../Classes/MyPurchase.cpp
                    

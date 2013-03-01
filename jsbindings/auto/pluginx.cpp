@@ -492,27 +492,6 @@ JSBool js_pluginx_ProtocolIAP_payResult(JSContext *cx, uint32_t argc, jsval *vp)
 	return JS_TRUE;
 }
 
-JSBool js_pluginx_ProtocolIAP_setResultListener(JSContext *cx, uint32_t argc, jsval *vp)
-{
-	jsval *argv = JS_ARGV(cx, vp);
-	JSBool ok = JS_TRUE;
-
-	cocos2d::plugin::PayResultListener* arg0;
-	JSB_PRECONDITION2( argc >= 1, cx, JS_FALSE, "Invalid number of arguments" );
-
-	do {
-			js_proxy_t *proxy;
-			JSObject *tmpObj = JSVAL_TO_OBJECT(argv[0]);
-			JS_GET_NATIVE_PROXY(proxy, tmpObj);
-			arg0 = (cocos2d::plugin::PayResultListener*)(proxy ? proxy->ptr : NULL);
-			JSB_PRECONDITION2( arg0, cx, JS_FALSE, "Invalid Native Object");
-		} while (0);
-	JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
-	cocos2d::plugin::ProtocolIAP::setResultListener(arg0);
-	JS_SET_RVAL(cx, vp, JSVAL_VOID);
-	return JS_TRUE;
-}
-
 
 
 void js_pluginx_ProtocolIAP_finalize(JSFreeOp *fop, JSObject *obj) {
@@ -546,7 +525,6 @@ void js_register_pluginx_ProtocolIAP(JSContext *cx, JSObject *global) {
 
 	static JSFunctionSpec st_funcs[] = {
 		JS_FN("payResult", js_pluginx_ProtocolIAP_payResult, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("setResultListener", js_pluginx_ProtocolIAP_setResultListener, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
 

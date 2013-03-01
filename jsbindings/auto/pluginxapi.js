@@ -131,12 +131,6 @@ getPluginName : function () {},
  */
 payResult : function () {},
 
-/**
- * @method setResultListener
- * @param {cocos2d::plugin::PayResultListener*}
- */
-setResultListener : function () {},
-
 };
 
 /**

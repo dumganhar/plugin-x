@@ -129,6 +129,12 @@ var IAPTestLayer = cc.Layer.extend({
         cc.log("menuCloseCallback");
     },
 
+    payResult: function(ret, msg, productInfo) {
+        cc.log("---------payResult callback begin-----------------");
+        cc.log("payResult="+ ret + ";msg=" +msg + ";productinfo="+productInfo);
+        cc.log("---------payResult callback end-----------------");
+    },
+
     eventMenuCallback: function(pSender) {
         var pMenuItem = pSender;
         var pInfo = {};
@@ -165,7 +171,8 @@ var IAPTestLayer = cc.Layer.extend({
     onEnter:function () {
         this._super();
         MyPurchase.getInstance().loadIAPPlugin();
-        
+        pluginx.ProtocolIAP.setResultListener(this);
+
         var director = cc.Director.getInstance();
         var size = director.getWinSize();
         
@@ -216,85 +223,6 @@ var IAPTestLayer = cc.Layer.extend({
         pMenu.addChild(pMenuItem, 0);
         pMenuItem.setPosition( cc.p(size.width / 2, 0));
     },
-});
-
-var MyLayer = cc.Layer.extend({
-    isMouseDown:false,
-    helloImg:null,
-    helloLabel:null,
-    circle:null,
-    sprite:null,
-
-    ctor:function() {
-        this._super();
-        cc.associateWithNative( this, cc.Layer );
-    },
-
-    init:function () {
-
-        //////////////////////////////
-        // 1. super init first
-        this._super();
-        var iap = pluginx.PluginManager.getInstance().loadPlugin("IAPAlipay");
-        iap.setDebugMode(true);
-
-        var pAlipayInfo = {};
-
-        if (Object.keys(pAlipayInfo).length == 0)
-        {
-            cc.log("Developer info is empty. PLZ fill your alipay info to pAlipayInfo)");
-        }
-
-        iap.initDeveloperInfo(pAlipayInfo);
-
-/////////////////////////////
-        // 2. add a menu item with "X" image, which is clicked to quit the program
-        //    you may modify it.
-        // ask director the window size
-        var size = cc.Director.getInstance().getWinSize();
-
-        // add a "close" icon to exit the progress. it's an autorelease object
-        var closeItem = cc.MenuItemImage.create(
-            "res/CloseNormal.png",
-            "res/CloseSelected.png",
-            function () {
-                cc.log("close button was clicked.");
-
-                var protuctInfo = {};
-                protuctInfo["productName"] = "100金币";
-                protuctInfo["productPrice"] = "0.1";
-                protuctInfo["productDesc"] = "100个金灿灿的游戏币哦";
-
-                iap.payForProduct(protuctInfo);
-
-            },this);
-        closeItem.setAnchorPoint(cc.p(0.5, 0.5));
-
-        var menu = cc.Menu.create(closeItem);
-        menu.setPosition(cc.p(0, 0));
-        this.addChild(menu, 1);
-        closeItem.setPosition(cc.p(size.width - 20, 20));
-
-        /////////////////////////////
-        // 3. add your codes below...
-        // add a label shows "Hello World"
-        // create and initialize a label
-        this.helloLabel = cc.LabelTTF.create("Hello World", "Arial", 38);
-        // position the label on the center of the screen
-        this.helloLabel.setPosition(cc.p(size.width / 2, size.height - 40));
-        // add the label as a child to this layer
-        this.addChild(this.helloLabel, 5);
-
-        // add "Helloworld" splash screen"
-        this.sprite = cc.Sprite.create("res/background.png");
-        this.sprite.setAnchorPoint(cc.p(0.5, 0.5));
-        this.sprite.setPosition(cc.p(size.width / 2, size.height / 2));
-
-        this.addChild(this.sprite, 0);
-
-        return true;
-    }
-
 });
 
 var MyScene = cc.Scene.extend({
