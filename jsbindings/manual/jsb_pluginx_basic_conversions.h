@@ -4,7 +4,8 @@
 #include "jsapi.h"
 #include "jsfriendapi.h"
 
-#include "IAPChinaMobile.h"
+#include "ProtocolIAP.h"
+
 using namespace cocos2d::plugin;
 
 JSBool jsval_to_TProductInfo(JSContext *cx, jsval v, TProductInfo* ret);
