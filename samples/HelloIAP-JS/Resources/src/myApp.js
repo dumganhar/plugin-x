@@ -46,12 +46,7 @@ var MyLayer = cc.Layer.extend({
 
         var pAlipayInfo = {};
 
-        var isEmpty = true;
-        for (var i in pAlipayInfo)
-        {
-            isEmpty = false;
-        }
-        if (isEmpty)
+        if (Object.keys(pAlipayInfo).length == 0)
         {
             cc.log("Developer info is empty. PLZ fill your alipay info to pAlipayInfo)");
         }
