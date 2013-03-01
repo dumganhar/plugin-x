@@ -64,5 +64,21 @@ JSBool js_pluginx_IAPAlipay_payForProduct(JSContext *cx, uint32_t argc, jsval *v
 JSBool js_pluginx_IAPAlipay_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_IAPAlipay_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_IAPAlipay_createPlugin(JSContext *cx, uint32_t argc, jsval *vp);
+
+extern JSClass  *js_pluginx_IAPNd91_class;
+extern JSObject *js_pluginx_IAPNd91_prototype;
+
+JSBool js_pluginx_IAPNd91_constructor(JSContext *cx, uint32_t argc, jsval *vp);
+void js_pluginx_IAPNd91_finalize(JSContext *cx, JSObject *obj);
+void js_register_pluginx_IAPNd91(JSContext *cx, JSObject *global);
+void register_all_pluginx(JSContext* cx, JSObject* obj);
+JSBool js_pluginx_IAPNd91_getPluginName(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_getPluginVersion(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_init(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_initDeveloperInfo(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_payForProduct(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_IAPNd91_createPlugin(JSContext *cx, uint32_t argc, jsval *vp);
 #endif
 
