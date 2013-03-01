@@ -9,7 +9,7 @@ namespace cocos2d { namespace plugin {
 class PluginManager
 {
 public:
-	~PluginManager();
+	virtual ~PluginManager();
 	/** Get singleton of PluginManager */
     static PluginManager* getInstance();
     /** Destory the instance of PluginManager */
