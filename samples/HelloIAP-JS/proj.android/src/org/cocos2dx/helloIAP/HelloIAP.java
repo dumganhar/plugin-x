@@ -24,7 +24,7 @@ THE SOFTWARE.
 package org.cocos2dx.helloIAP;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
-import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
+import org.cocos2dx.lib.Cocos2dxGLSurfaceView;
 import org.cocos2dx.plugin.PluginWrapper;
 
 import android.os.Bundle;
