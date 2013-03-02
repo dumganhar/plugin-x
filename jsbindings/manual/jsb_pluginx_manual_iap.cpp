@@ -1,11 +1,10 @@
 #include "jsb_pluginx_manual_iap.h"
 #include "jsb_pluginx_basic_conversions.h"
-#include "cocos2d.h"
-#include "cocos2d_specifics.hpp"
-#include "ScriptingCore.h"
+#include "jsb_pluginx_spidermonkey_specifics.h"
 
-using namespace cocos2d;
-//extern JSObject *js_pluginx_ProtocolIAP_prototype;
+using namespace pluginx;
+
+static JSContext* s_cx = NULL;
 
 class Pluginx_PurchaseResult : public cocos2d::plugin::PayResultListener
 {
@@ -17,9 +16,9 @@ public:
                 info.find("productName")->second.c_str(),
                 info.find("productPrice")->second.c_str(),
                 info.find("productDesc")->second.c_str());
-        CCMessageBox(goodInfo , msg);
+        LOGD(goodInfo);
         
-        JSContext* cx = ScriptingCore::getInstance()->getGlobalContext();
+        JSContext* cx = s_cx;
 
         JSBool hasAction;
         jsval retval;
@@ -56,6 +55,7 @@ private:
 
 JSBool js_pluginx_ProtocolIAP_setResultListener(JSContext *cx, uint32_t argc, jsval *vp)
 {
+    s_cx = cx;
     jsval *argv = JS_ARGV(cx, vp);
     JSBool ok = JS_TRUE;
 

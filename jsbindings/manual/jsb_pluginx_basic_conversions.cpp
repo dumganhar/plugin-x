@@ -1,5 +1,129 @@
 #include "jsb_pluginx_basic_conversions.h"
-#include "ScriptingCore.h"
+#include <math.h>
+
+#include "jsb_pluginx_spidermonkey_specifics.h"
+#include "pluginxUTF8.h"
+
+namespace pluginx {
+
+// just a simple utility to avoid mem leaking when using JSString
+class JSStringWrapper
+{
+    JSString*   string;
+    const char* buffer;
+public:
+    JSStringWrapper() {
+        buffer = NULL;
+    }
+    JSStringWrapper(JSString* str, JSContext* cx) {
+        set(str, cx);
+    }
+    JSStringWrapper(jsval val, JSContext* cx) {
+        set(val, cx);
+    }
+    ~JSStringWrapper() {
+        if (buffer) {
+            delete[] buffer;
+            buffer = NULL;
+        }
+    }
+    void set(jsval val, JSContext* cx) {
+        if (val.isString()) {
+            this->set(val.toString(), cx);
+        } else {
+            buffer = NULL;
+        }
+    }
+    void set(JSString* str, JSContext* cx) {
+        string = str;
+        // Not suppored in SpiderMonkey v19
+        //buffer = JS_EncodeString(cx, string);
+        
+        const jschar *chars = JS_GetStringCharsZ(cx, string);
+        size_t l = JS_GetStringLength(string);
+        char* pUTF8Str = cc_utf16_to_utf8((const unsigned short*)chars, l, NULL, NULL);
+        buffer = pUTF8Str;
+    }
+
+    std::string get() {
+        return buffer;
+    }
+
+    operator std::string() {
+        return std::string(buffer);
+    }
+    operator char*() {
+        return (char*)buffer;
+    }
+};
+
+
+JSBool jsval_to_int32( JSContext *cx, jsval vp, int32_t *outval )
+{
+    JSBool ok = JS_TRUE;
+    double dp;
+    ok &= JS_ValueToNumber(cx, vp, &dp);
+    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    ok &= !isnan(dp);
+    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+
+    *outval = (int32_t)dp;
+
+    return ok;
+}
+
+JSBool jsval_to_uint32( JSContext *cx, jsval vp, uint32_t *outval )
+{
+    JSBool ok = JS_TRUE;
+    double dp;
+    ok &= JS_ValueToNumber(cx, vp, &dp);
+    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    ok &= !isnan(dp);
+    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+
+    *outval = (uint32_t)dp;
+
+    return ok;
+}
+
+JSBool jsval_to_uint16( JSContext *cx, jsval vp, uint16_t *outval )
+{
+    JSBool ok = JS_TRUE;
+    double dp;
+    ok &= JS_ValueToNumber(cx, vp, &dp);
+    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    ok &= !isnan(dp);
+    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+
+    *outval = (uint16_t)dp;
+
+    return ok;
+}
+
+JSBool jsval_to_long_long(JSContext *cx, jsval vp, long long* r) {
+    JSObject *tmp_arg;
+    JSBool ok = JS_ValueToObject( cx, vp, &tmp_arg );
+    JSB_PLUGINX_PRECONDITION2( ok, cx, JS_FALSE, "Error converting value to object");
+    JSB_PLUGINX_PRECONDITION2( tmp_arg && JS_IsTypedArrayObject( tmp_arg ), cx, JS_FALSE, "Not a TypedArray object");
+    JSB_PLUGINX_PRECONDITION2( JS_GetTypedArrayByteLength( tmp_arg ) == sizeof(long long), cx, JS_FALSE, "Invalid Typed Array length");
+    
+    uint32_t* arg_array = (uint32_t*)JS_GetArrayBufferViewData( tmp_arg );
+    long long ret =  arg_array[0];
+    ret = ret << 32;
+    ret |= arg_array[1];
+    
+    *r = ret;
+    return JS_TRUE;
+}
+
+JSBool jsval_to_std_string(JSContext *cx, jsval v, std::string* ret) {
+    JSString *tmp = JS_ValueToString(cx, v);
+    JSB_PLUGINX_PRECONDITION2(tmp, cx, JS_FALSE, "Error processing arguments");
+
+    JSStringWrapper str(tmp, cx);
+    *ret = str.get();
+    return JS_TRUE;
+}
 
 JSBool jsval_to_TProductInfo(JSContext *cx, jsval v, TProductInfo* ret)
 {
@@ -21,11 +145,11 @@ JSBool jsval_to_TProductInfo(JSContext *cx, jsval v, TProductInfo* ret)
         if (! JSVAL_IS_STRING(value))
             continue; // ignore integer properties
 
-        JSStringWrapper strWrapper(JSVAL_TO_STRING(key));
-        JSStringWrapper strWrapper2(JSVAL_TO_STRING(value));
+        JSStringWrapper strWrapper(JSVAL_TO_STRING(key), cx);
+        JSStringWrapper strWrapper2(JSVAL_TO_STRING(value), cx);
 
         (*ret)[strWrapper.get()] = strWrapper2.get();
-        CCLOG("iterate object: key = %s, value = %s", strWrapper.get().c_str(), strWrapper2.get().c_str());
+        LOGD("iterate object: key = %s, value = %s", strWrapper.get().c_str(), strWrapper2.get().c_str());
     }
 
     return JS_TRUE;
@@ -34,6 +158,35 @@ JSBool jsval_to_TProductInfo(JSContext *cx, jsval v, TProductInfo* ret)
 JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret)
 {
     return jsval_to_TProductInfo(cx, v, ret);
+}
+
+// From native type to jsval
+jsval int32_to_jsval( JSContext *cx, int32_t number )
+{
+    return INT_TO_JSVAL(number);
+}
+
+jsval uint32_to_jsval( JSContext *cx, uint32_t number )
+{
+    return UINT_TO_JSVAL(number);
+}
+
+jsval long_long_to_jsval(JSContext* cx, long long v) {
+    JSObject *tmp = JS_NewUint32Array(cx, 2);
+    uint32_t *data = (uint32_t *)JS_GetArrayBufferViewData(tmp);
+    data[0] = ((uint32_t *)(&v))[0];
+    data[1] = ((uint32_t *)(&v))[1];
+    return OBJECT_TO_JSVAL(tmp);
+}
+
+jsval std_string_to_jsval(JSContext* cx, std::string& v) {
+    JSString *str = JS_NewStringCopyZ(cx, v.c_str());
+    return STRING_TO_JSVAL(str);
+}
+
+jsval c_string_to_jsval(JSContext* cx, const char* v) {
+    JSString *str = JS_NewStringCopyZ(cx, v);
+    return STRING_TO_JSVAL(str);
 }
 
 jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret)
@@ -48,4 +201,7 @@ jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret)
 
     return OBJECT_TO_JSVAL(tmp);
 }
+
+
+}// namespace pluginx {
 

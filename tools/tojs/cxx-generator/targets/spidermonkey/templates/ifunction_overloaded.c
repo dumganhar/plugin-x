@@ -8,9 +8,9 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 	${namespaced_class_name}* cobj;
 #if not $is_constructor
 	obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
 	cobj = (${namespaced_class_name} *)(proxy ? proxy->ptr : NULL);
-	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 #end if
 
 #for func in $implementations
@@ -30,17 +30,17 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 			#set $arg_array += ["arg"+str(count)]
 			#set $count = $count + 1
 		#end for
-		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		#set $arg_list = ", ".join($arg_array)
 	#end if
 	#if $is_constructor
 		cobj = new ${namespaced_class_name}(${arg_list});
-\#ifdef COCOS2D_JAVASCRIPT
-		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
-		if (_ccobj) {
-			_ccobj->autorelease();
-		}
-\#endif
+//\#ifdef COCOS2D_JAVASCRIPT
+		// cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		// if (_ccobj) {
+		// 	_ccobj->autorelease();
+		// }
+//\#endif
 		TypeTest<${namespaced_class_name}> t;
 		js_type_class_t *typeClass;
 		uint32_t typeId = t.s_id();
@@ -48,10 +48,10 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 		assert(typeClass);
 		obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
 		js_proxy_t *proxy;
-		JS_NEW_PROXY(proxy, cobj, obj);
-\#ifdef COCOS2D_JAVASCRIPT
+		JSB_PLUGINX_NEW_PROXY(proxy, cobj, obj);
+//\#ifdef COCOS2D_JAVASCRIPT
 		JS_AddNamedObjectRoot(cx, &proxy->obj, "${namespaced_class_name}");
-\#endif
+//\#endif
 	#else
 		#if str($func.ret_type) != "void"
 		${func.ret_type} ret = cobj->${func.func_name}($arg_list);
