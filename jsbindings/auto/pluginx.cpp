@@ -25,7 +25,7 @@ static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 	assert(p);
 	JSObject *_tmp = JS_NewObject(cx, p->jsclass, p->proto, p->parentProto);
 	js_proxy_t *pp;
-	JSB_PLUGINX_NEW_PROXY(pp, cobj, _tmp);
+	JS_NEW_PROXY(pp, cobj, _tmp);
 //#ifdef COCOS2D_JAVASCRIPT
 //	JS_AddObjectRoot(cx, &pp->obj);
 //#endif
@@ -47,14 +47,14 @@ JSBool js_pluginx_PluginProtocol_setUserData(JSContext *cx, uint32_t argc, jsval
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginProtocol* cobj = (cocos2d::plugin::PluginProtocol *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		void* arg0;
 		#pragma warning NO CONVERSION TO NATIVE FOR void*;
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->setUserData(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -65,9 +65,9 @@ JSBool js_pluginx_PluginProtocol_setUserData(JSContext *cx, uint32_t argc, jsval
 JSBool js_pluginx_PluginProtocol_getUserData(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginProtocol* cobj = (cocos2d::plugin::PluginProtocol *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		void* ret = cobj->getUserData();
@@ -82,9 +82,9 @@ JSBool js_pluginx_PluginProtocol_getUserData(JSContext *cx, uint32_t argc, jsval
 JSBool js_pluginx_PluginProtocol_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginProtocol* cobj = (cocos2d::plugin::PluginProtocol *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginName();
@@ -99,9 +99,9 @@ JSBool js_pluginx_PluginProtocol_getPluginName(JSContext *cx, uint32_t argc, jsv
 JSBool js_pluginx_PluginProtocol_getPluginVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginProtocol* cobj = (cocos2d::plugin::PluginProtocol *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginVersion();
@@ -116,9 +116,9 @@ JSBool js_pluginx_PluginProtocol_getPluginVersion(JSContext *cx, uint32_t argc, 
 JSBool js_pluginx_PluginProtocol_init(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginProtocol* cobj = (cocos2d::plugin::PluginProtocol *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		bool ret = cobj->init();
@@ -135,14 +135,14 @@ JSBool js_pluginx_PluginProtocol_setDebugMode(JSContext *cx, uint32_t argc, jsva
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginProtocol* cobj = (cocos2d::plugin::PluginProtocol *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		JSBool arg0;
 		ok &= JS_ValueToBoolean(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->setDebugMode(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -221,14 +221,14 @@ JSBool js_pluginx_PluginManager_unloadPlugin(JSContext *cx, uint32_t argc, jsval
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginManager* cobj = (cocos2d::plugin::PluginManager *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		const char* arg0;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->unloadPlugin(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -241,14 +241,14 @@ JSBool js_pluginx_PluginManager_loadPlugin(JSContext *cx, uint32_t argc, jsval *
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::PluginManager* cobj = (cocos2d::plugin::PluginManager *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		const char* arg0;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cocos2d::plugin::PluginProtocol* ret = cobj->loadPlugin(arg0);
 		jsval jsret;
 		do {
@@ -357,14 +357,14 @@ JSBool js_pluginx_ProtocolIAP_initDeveloperInfo(JSContext *cx, uint32_t argc, js
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		TDeveloperInfo arg0;
 		ok &= jsval_to_TDeveloperInfo(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->initDeveloperInfo(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -375,9 +375,9 @@ JSBool js_pluginx_ProtocolIAP_initDeveloperInfo(JSContext *cx, uint32_t argc, js
 JSBool js_pluginx_ProtocolIAP_getPluginVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginVersion();
@@ -392,9 +392,9 @@ JSBool js_pluginx_ProtocolIAP_getPluginVersion(JSContext *cx, uint32_t argc, jsv
 JSBool js_pluginx_ProtocolIAP_init(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		bool ret = cobj->init();
@@ -411,14 +411,14 @@ JSBool js_pluginx_ProtocolIAP_payForProduct(JSContext *cx, uint32_t argc, jsval 
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		TProductInfo arg0;
 		ok &= jsval_to_TProductInfo(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->payForProduct(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -429,9 +429,9 @@ JSBool js_pluginx_ProtocolIAP_payForProduct(JSContext *cx, uint32_t argc, jsval 
 JSBool js_pluginx_ProtocolIAP_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getSDKVersion();
@@ -448,14 +448,14 @@ JSBool js_pluginx_ProtocolIAP_setDebugMode(JSContext *cx, uint32_t argc, jsval *
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		JSBool arg0;
 		ok &= JS_ValueToBoolean(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->setDebugMode(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -466,9 +466,9 @@ JSBool js_pluginx_ProtocolIAP_setDebugMode(JSContext *cx, uint32_t argc, jsval *
 JSBool js_pluginx_ProtocolIAP_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::ProtocolIAP* cobj = (cocos2d::plugin::ProtocolIAP *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginName();
@@ -487,11 +487,11 @@ JSBool js_pluginx_ProtocolIAP_payResult(JSContext *cx, uint32_t argc, jsval *vp)
 
 	cocos2d::plugin::EPayResult arg0;
 	const char* arg1;
-	JSB_PLUGINX_PRECONDITION2( argc >= 2, cx, JS_FALSE, "Invalid number of arguments" );
+	JSB_PRECONDITION2( argc >= 2, cx, JS_FALSE, "Invalid number of arguments" );
 
 	ok &= jsval_to_int32(cx, argv[0], (int32_t *)&arg0);
 	std::string arg1_tmp; ok &= jsval_to_std_string(cx, argv[1], &arg1_tmp); arg1 = arg1_tmp.c_str();
-	JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+	JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 	cocos2d::plugin::ProtocolIAP::payResult(arg0, arg1);
 	JS_SET_RVAL(cx, vp, JSVAL_VOID);
 	return JS_TRUE;
@@ -568,9 +568,9 @@ JSObject *js_pluginx_IAPAlipay_prototype;
 JSBool js_pluginx_IAPAlipay_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginName();
@@ -585,9 +585,9 @@ JSBool js_pluginx_IAPAlipay_getPluginName(JSContext *cx, uint32_t argc, jsval *v
 JSBool js_pluginx_IAPAlipay_getPluginVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginVersion();
@@ -602,9 +602,9 @@ JSBool js_pluginx_IAPAlipay_getPluginVersion(JSContext *cx, uint32_t argc, jsval
 JSBool js_pluginx_IAPAlipay_init(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		bool ret = cobj->init();
@@ -621,14 +621,14 @@ JSBool js_pluginx_IAPAlipay_initDeveloperInfo(JSContext *cx, uint32_t argc, jsva
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		TDeveloperInfo arg0;
 		ok &= jsval_to_TDeveloperInfo(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->initDeveloperInfo(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -641,14 +641,14 @@ JSBool js_pluginx_IAPAlipay_payForProduct(JSContext *cx, uint32_t argc, jsval *v
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		TProductInfo arg0;
 		ok &= jsval_to_TProductInfo(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->payForProduct(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -659,9 +659,9 @@ JSBool js_pluginx_IAPAlipay_payForProduct(JSContext *cx, uint32_t argc, jsval *v
 JSBool js_pluginx_IAPAlipay_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getSDKVersion();
@@ -678,14 +678,14 @@ JSBool js_pluginx_IAPAlipay_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPAlipay* cobj = (cocos2d::plugin::IAPAlipay *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		JSBool arg0;
 		ok &= JS_ValueToBoolean(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->setDebugMode(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -780,9 +780,9 @@ JSObject *js_pluginx_IAPNd91_prototype;
 JSBool js_pluginx_IAPNd91_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginName();
@@ -797,9 +797,9 @@ JSBool js_pluginx_IAPNd91_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
 JSBool js_pluginx_IAPNd91_getPluginVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getPluginVersion();
@@ -814,9 +814,9 @@ JSBool js_pluginx_IAPNd91_getPluginVersion(JSContext *cx, uint32_t argc, jsval *
 JSBool js_pluginx_IAPNd91_init(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		bool ret = cobj->init();
@@ -833,14 +833,14 @@ JSBool js_pluginx_IAPNd91_initDeveloperInfo(JSContext *cx, uint32_t argc, jsval 
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		TDeveloperInfo arg0;
 		ok &= jsval_to_TDeveloperInfo(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->initDeveloperInfo(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -853,14 +853,14 @@ JSBool js_pluginx_IAPNd91_payForProduct(JSContext *cx, uint32_t argc, jsval *vp)
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		TProductInfo arg0;
 		ok &= jsval_to_TProductInfo(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->payForProduct(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
@@ -871,9 +871,9 @@ JSBool js_pluginx_IAPNd91_payForProduct(JSContext *cx, uint32_t argc, jsval *vp)
 JSBool js_pluginx_IAPNd91_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
 		const char* ret = cobj->getSDKVersion();
@@ -890,14 +890,14 @@ JSBool js_pluginx_IAPNd91_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp)
 	jsval *argv = JS_ARGV(cx, vp);
 	JSBool ok = JS_TRUE;
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cocos2d::plugin::IAPNd91* cobj = (cocos2d::plugin::IAPNd91 *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 1) {
 		JSBool arg0;
 		ok &= JS_ValueToBoolean(cx, argv[0], &arg0);
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		cobj->setDebugMode(arg0);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;

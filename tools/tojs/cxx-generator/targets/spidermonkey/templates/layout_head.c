@@ -25,7 +25,7 @@ static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 	assert(p);
 	JSObject *_tmp = JS_NewObject(cx, p->jsclass, p->proto, p->parentProto);
 	js_proxy_t *pp;
-	JSB_PLUGINX_NEW_PROXY(pp, cobj, _tmp);
+	JS_NEW_PROXY(pp, cobj, _tmp);
 //\#ifdef COCOS2D_JAVASCRIPT
 //	JS_AddObjectRoot(cx, &pp->obj);
 //\#endif

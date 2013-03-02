@@ -1,5 +1,5 @@
-#ifndef __JSB_PLUGINX_BASIC_CONVERSIONS_H__
-#define __JSB_PLUGINX_BASIC_CONVERSIONS_H__
+#ifndef __JS_BASIC_CONVERSIONS_H__
+#define __JS_BASIC_CONVERSIONS_H__
 
 #include "jsapi.h"
 #include "jsfriendapi.h"
@@ -30,4 +30,4 @@ jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret);
 
 } // namespace pluginx {
 
-#endif /* __JSB_PLUGINX_BASIC_CONVERSIONS_H__ */
+#endif /* __JS_BASIC_CONVERSIONS_H__ */

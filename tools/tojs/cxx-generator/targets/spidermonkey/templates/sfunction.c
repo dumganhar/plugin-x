@@ -12,7 +12,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 	${arg.to_string($generator)} arg${count};
 		#set $count = $count + 1
 	#end for
-	JSB_PLUGINX_PRECONDITION2( argc >= ${min_args}, cx, JS_FALSE, "Invalid number of arguments" );
+	JSB_PRECONDITION2( argc >= ${min_args}, cx, JS_FALSE, "Invalid number of arguments" );
 
 	#set $count = 0
 	#for $arg in $arguments
@@ -25,7 +25,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
         #set $arg_array += ["arg"+str($count)]
         #set $count = $count + 1
 	#end for
-	JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+	JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 	#set $arg_list = ", ".join($arg_array)
 #end if
 #if str($ret_type) != "void"

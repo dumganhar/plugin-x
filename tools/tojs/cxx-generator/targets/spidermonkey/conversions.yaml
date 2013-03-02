@@ -40,9 +40,9 @@ conversions:
       do {
       ${($level + 1) * '\t'}js_proxy_t *proxy;
       ${($level + 1) * '\t'}JSObject *tmpObj = JSVAL_TO_OBJECT(${in_value});
-      ${($level + 1) * '\t'}JSB_PLUGINX_GET_NATIVE_PROXY(proxy, tmpObj);
+      ${($level + 1) * '\t'}JS_GET_NATIVE_PROXY(proxy, tmpObj);
       ${($level + 1) * '\t'}${out_value} = (${ntype})(proxy ? proxy->ptr : NULL);
-      ${($level + 1) * '\t'}JSB_PLUGINX_PRECONDITION2( ${out_value}, cx, JS_FALSE, "Invalid Native Object");
+      ${($level + 1) * '\t'}JSB_PRECONDITION2( ${out_value}, cx, JS_FALSE, "Invalid Native Object");
       ${($level + 0) * '\t'}} while (0)
     TProductInfo: "ok &= jsval_to_TProductInfo(cx, ${in_value}, &${out_value})"
     TDeveloperInfo: "ok &= jsval_to_TDeveloperInfo(cx, ${in_value}, &${out_value})"

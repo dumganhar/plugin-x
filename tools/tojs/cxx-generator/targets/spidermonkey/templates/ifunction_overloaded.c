@@ -8,9 +8,9 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 	${namespaced_class_name}* cobj;
 #if not $is_constructor
 	obj = JS_THIS_OBJECT(cx, vp);
-	js_proxy_t *proxy; JSB_PLUGINX_GET_NATIVE_PROXY(proxy, obj);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
 	cobj = (${namespaced_class_name} *)(proxy ? proxy->ptr : NULL);
-	JSB_PLUGINX_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 #end if
 
 #for func in $implementations
@@ -30,7 +30,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 			#set $arg_array += ["arg"+str(count)]
 			#set $count = $count + 1
 		#end for
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 		#set $arg_list = ", ".join($arg_array)
 	#end if
 	#if $is_constructor
@@ -48,7 +48,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 		assert(typeClass);
 		obj = JS_NewObject(cx, typeClass->jsclass, typeClass->proto, typeClass->parentProto);
 		js_proxy_t *proxy;
-		JSB_PLUGINX_NEW_PROXY(proxy, cobj, obj);
+		JS_NEW_PROXY(proxy, cobj, obj);
 //\#ifdef COCOS2D_JAVASCRIPT
 		JS_AddNamedObjectRoot(cx, &proxy->obj, "${namespaced_class_name}");
 //\#endif

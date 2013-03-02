@@ -1,5 +1,5 @@
-#ifndef __JSB_PLUGINX_PLUGINX_SPIDERMONKEY_SPECIFICS_H__
-#define __JSB_PLUGINX_PLUGINX_SPIDERMONKEY_SPECIFICS_H__
+#ifndef __JS_PLUGINX_SPIDERMONKEY_SPECIFICS_H__
+#define __JS_PLUGINX_SPIDERMONKEY_SPECIFICS_H__
 
 #include <typeinfo>
 #include <ctype.h>
@@ -22,7 +22,7 @@ namespace pluginx {
 #define  LOGD(...) printf(__VA_ARGS__)
 #endif
 
-#define JSB_PLUGINX_PRECONDITION( condition, ...) do {							\
+#define JSB_PRECONDITION( condition, ...) do {							\
 	if( ! (condition) ) {														\
         LOGD("jsb: ERROR: File %s: Line: %d, Function: %s", __FILE__, __LINE__, __FUNCTION__ );			\
         LOGD(__VA_ARGS__);                                        \
@@ -34,7 +34,7 @@ namespace pluginx {
 	}																			\
 } while(0)
 
-#define JSB_PLUGINX_PRECONDITION2( condition, context, ret_value, ...) do {             \
+#define JSB_PRECONDITION2( condition, context, ret_value, ...) do {             \
     if( ! (condition) ) {														\
         LOGD("jsb: ERROR: File %s: Line: %d, Function: %s", __FILE__, __LINE__, __FUNCTION__ );			\
         LOGD(__VA_ARGS__);                                        \
@@ -108,7 +108,7 @@ public:
 };
 
 
-#define JSB_PLUGINX_NEW_PROXY(p, native_obj, js_obj) \
+#define JS_NEW_PROXY(p, native_obj, js_obj) \
 do { \
 	p = (js_proxy_t *)malloc(sizeof(js_proxy_t)); \
 	assert(p); \
@@ -128,23 +128,23 @@ do { \
 	HASH_ADD_PTR(_js_native_global_ht, obj, p); \
 } while(0) \
 
-#define JSB_PLUGINX_GET_PROXY(p, native_obj) \
+#define JS_GET_PROXY(p, native_obj) \
 do { \
 	HASH_FIND_PTR(_native_js_global_ht, &native_obj, p); \
 } while (0)
 
-#define JSB_PLUGINX_GET_NATIVE_PROXY(p, js_obj) \
+#define JS_GET_NATIVE_PROXY(p, js_obj) \
 do { \
 	HASH_FIND_PTR(_js_native_global_ht, &js_obj, p); \
 } while (0)
 
-#define JSB_PLUGINX_REMOVE_PROXY(nproxy, jsproxy) \
+#define JS_REMOVE_PROXY(nproxy, jsproxy) \
 do { \
 	if (nproxy) { HASH_DEL(_native_js_global_ht, nproxy); free(nproxy); } \
 	if (jsproxy) { HASH_DEL(_js_native_global_ht, jsproxy); free(jsproxy); } \
 } while (0)
 
-#define JSB_PLUGINX_TEST_NATIVE_OBJECT(cx, native_obj) \
+#define JS_TEST_NATIVE_OBJECT(cx, native_obj) \
 if (!native_obj) { \
 	JS_ReportError(cx, "Invalid Native Object"); \
 	return JS_FALSE; \
@@ -178,7 +178,7 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
         js_type_class_t *typeProxy = js_get_type_from_native<T>(native_obj);
         assert(typeProxy);
         JSObject* js_obj = JS_NewObject(cx, typeProxy->jsclass, typeProxy->proto, typeProxy->parentProto);
-        JSB_PLUGINX_NEW_PROXY(proxy, native_obj, js_obj);
+        JS_NEW_PROXY(proxy, native_obj, js_obj);
 #ifdef DEBUG
         JS_AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());
 #else
@@ -194,5 +194,5 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
 
 } // namespace pluginx {
 
-#endif /* __JSB_PLUGINX_PLUGINX_SPIDERMONKEY_SPECIFICS_H__ */
+#endif /* __JS_PLUGINX_SPIDERMONKEY_SPECIFICS_H__ */
 

@@ -32,7 +32,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 	#set $count = $count + 1
 #end for
 	#if $min_args > 0
-		JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 	#end if
 #set $arg_list = ", ".join($arg_array)
 #if $is_constructor
@@ -52,7 +52,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(obj));
 		// link the native object with the javascript object
 		js_proxy_t *p;
-		JSB_PLUGINX_NEW_PROXY(p, cobj, obj);
+		JS_NEW_PROXY(p, cobj, obj);
 //\#ifdef COCOS2D_JAVASCRIPT
 		JS_AddNamedObjectRoot(cx, &p->obj, "${namespaced_class_name}");
 //\#endif

@@ -63,9 +63,9 @@ JSBool jsval_to_int32( JSContext *cx, jsval vp, int32_t *outval )
     JSBool ok = JS_TRUE;
     double dp;
     ok &= JS_ValueToNumber(cx, vp, &dp);
-    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
     ok &= !isnan(dp);
-    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 
     *outval = (int32_t)dp;
 
@@ -77,9 +77,9 @@ JSBool jsval_to_uint32( JSContext *cx, jsval vp, uint32_t *outval )
     JSBool ok = JS_TRUE;
     double dp;
     ok &= JS_ValueToNumber(cx, vp, &dp);
-    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
     ok &= !isnan(dp);
-    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 
     *outval = (uint32_t)dp;
 
@@ -91,9 +91,9 @@ JSBool jsval_to_uint16( JSContext *cx, jsval vp, uint16_t *outval )
     JSBool ok = JS_TRUE;
     double dp;
     ok &= JS_ValueToNumber(cx, vp, &dp);
-    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
     ok &= !isnan(dp);
-    JSB_PLUGINX_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 
     *outval = (uint16_t)dp;
 
@@ -103,9 +103,9 @@ JSBool jsval_to_uint16( JSContext *cx, jsval vp, uint16_t *outval )
 JSBool jsval_to_long_long(JSContext *cx, jsval vp, long long* r) {
     JSObject *tmp_arg;
     JSBool ok = JS_ValueToObject( cx, vp, &tmp_arg );
-    JSB_PLUGINX_PRECONDITION2( ok, cx, JS_FALSE, "Error converting value to object");
-    JSB_PLUGINX_PRECONDITION2( tmp_arg && JS_IsTypedArrayObject( tmp_arg ), cx, JS_FALSE, "Not a TypedArray object");
-    JSB_PLUGINX_PRECONDITION2( JS_GetTypedArrayByteLength( tmp_arg ) == sizeof(long long), cx, JS_FALSE, "Invalid Typed Array length");
+    JSB_PRECONDITION2( ok, cx, JS_FALSE, "Error converting value to object");
+    JSB_PRECONDITION2( tmp_arg && JS_IsTypedArrayObject( tmp_arg ), cx, JS_FALSE, "Not a TypedArray object");
+    JSB_PRECONDITION2( JS_GetTypedArrayByteLength( tmp_arg ) == sizeof(long long), cx, JS_FALSE, "Invalid Typed Array length");
     
     uint32_t* arg_array = (uint32_t*)JS_GetArrayBufferViewData( tmp_arg );
     long long ret =  arg_array[0];
@@ -118,7 +118,7 @@ JSBool jsval_to_long_long(JSContext *cx, jsval vp, long long* r) {
 
 JSBool jsval_to_std_string(JSContext *cx, jsval v, std::string* ret) {
     JSString *tmp = JS_ValueToString(cx, v);
-    JSB_PLUGINX_PRECONDITION2(tmp, cx, JS_FALSE, "Error processing arguments");
+    JSB_PRECONDITION2(tmp, cx, JS_FALSE, "Error processing arguments");
 
     JSStringWrapper str(tmp, cx);
     *ret = str.get();
