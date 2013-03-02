@@ -8,15 +8,17 @@ LOCAL_MODULE_FILENAME := libgame
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
+                   ../../../../jsbindings/jsb_pluginx_registration.cpp \
                    ../../../../jsbindings/auto/pluginx.cpp \
                    ../../../../jsbindings/manual/pluginxUTF8.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_basic_conversions.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_manual_iap.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_extension_registration.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_spidermonkey_specifics.cpp 
-                   
-                   
+
+
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
+                    $(LOCAL_PATH)/../../../../jsbindings \
                     $(LOCAL_PATH)/../../../../jsbindings/auto \
                     $(LOCAL_PATH)/../../../../jsbindings/manual 
 

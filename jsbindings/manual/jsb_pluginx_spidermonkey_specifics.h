@@ -167,11 +167,13 @@ inline js_proxy_t *js_get_or_create_proxy(JSContext *cx, T *native_obj) {
         assert(typeProxy);
         JSObject* js_obj = JS_NewObject(cx, typeProxy->jsclass, typeProxy->proto, typeProxy->parentProto);
         JS_NEW_PROXY(proxy, native_obj, js_obj);
-#ifdef DEBUG
-        JS_AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());
-#else
-        JS_AddObjectRoot(cx, &proxy->obj);
-#endif
+//#ifdef COCOS2D_JAVASCRIPT
+// #ifdef DEBUG
+//         JS_AddNamedObjectRoot(cx, &proxy->obj, typeid(*native_obj).name());
+// #else
+//         JS_AddObjectRoot(cx, &proxy->obj);
+// #endif
+//#endif
         return proxy;
     } else {
         return proxy;

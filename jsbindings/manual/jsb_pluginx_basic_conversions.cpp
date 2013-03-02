@@ -180,13 +180,18 @@ jsval long_long_to_jsval(JSContext* cx, long long v) {
 }
 
 jsval std_string_to_jsval(JSContext* cx, std::string& v) {
-    JSString *str = JS_NewStringCopyZ(cx, v.c_str());
-    return STRING_TO_JSVAL(str);
+    //JSString *str = JS_NewStringCopyZ(cx, v.c_str());
+    jsval rval;
+    unsigned short* pUTF16 = cc_utf8_to_utf16(v.c_str());
+    JSString *str = JS_NewUCStringCopyZ(cx, pUTF16);
+    rval = STRING_TO_JSVAL(str);
+    delete[] pUTF16;
+    return rval;
 }
 
 jsval c_string_to_jsval(JSContext* cx, const char* v) {
-    JSString *str = JS_NewStringCopyZ(cx, v);
-    return STRING_TO_JSVAL(str);
+    std::string str(v);
+    return std_string_to_jsval(cx, str);
 }
 
 jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret)

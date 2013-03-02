@@ -61,12 +61,6 @@ var MyPurchase = cc.Class.extend({
         this._pNd91 = pluginx.PluginManager.getInstance().loadPlugin("IAPNd91");
         this._pNd91.setDebugMode(true);
         this._pNd91.initDeveloperInfo(pNdInfo);
-
-        if (this._pRetListener == null)
-        {
-//            _pRetListener = new MyPurchaseResult();
-//            ProtocolIAP::setResultListener(s_pRetListener);
-        }
     },
 
     unloadIAPPlugin: function() {
@@ -127,6 +121,7 @@ var IAPTestLayer = cc.Layer.extend({
 
     menuCloseCallback: function() {
         cc.log("menuCloseCallback");
+        __jsc__.garbageCollect();
     },
 
     payResult: function(ret, msg, productInfo) {

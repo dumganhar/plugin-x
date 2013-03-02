@@ -8,8 +8,7 @@
 #include "js_bindings_chipmunk_registration.h"
 #include "js_bindings_system_registration.h"
 #include "js_bindings_ccbreader.h"
-#include "pluginx.hpp"
-#include "jsb_pluginx_extension_registration.h"
+#include "jsb_pluginx_registration.h"
 
 USING_NS_CC;
 using namespace CocosDenshion;
@@ -41,8 +40,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     sc->addRegisterCallback(register_CCBuilderReader);
     sc->addRegisterCallback(jsb_register_chipmunk);
     sc->addRegisterCallback(jsb_register_system);
-    sc->addRegisterCallback(register_all_pluginx);
-    sc->addRegisterCallback(register_pluginx_js_extensions);
+    sc->addRegisterCallback(jsb_register_pluginx);
     
     sc->start();
     

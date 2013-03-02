@@ -153,6 +153,16 @@ JSBool js_pluginx_PluginProtocol_setDebugMode(JSContext *cx, uint32_t argc, jsva
 
 
 void js_pluginx_PluginProtocol_finalize(JSFreeOp *fop, JSObject *obj) {
+//#ifdef COCOS2D_JAVASCRIPT
+	LOGD("js_pluginx_PluginProtocol_finalize\n");
+    js_proxy_t* nproxy;
+    js_proxy_t* jsproxy;
+    JS_GET_NATIVE_PROXY(jsproxy, obj);
+    if (jsproxy) {
+        JS_GET_PROXY(nproxy, jsproxy->ptr);
+        JS_REMOVE_PROXY(nproxy, jsproxy);
+    }
+//#endif 
 }
 
 void js_register_pluginx_PluginProtocol(JSContext *cx, JSObject *global) {
@@ -291,6 +301,16 @@ JSBool js_pluginx_PluginManager_getInstance(JSContext *cx, uint32_t argc, jsval 
 
 
 void js_pluginx_PluginManager_finalize(JSFreeOp *fop, JSObject *obj) {
+//#ifdef COCOS2D_JAVASCRIPT
+	LOGD("js_pluginx_PluginManager_finalize\n");
+    js_proxy_t* nproxy;
+    js_proxy_t* jsproxy;
+    JS_GET_NATIVE_PROXY(jsproxy, obj);
+    if (jsproxy) {
+        JS_GET_PROXY(nproxy, jsproxy->ptr);
+        JS_REMOVE_PROXY(nproxy, jsproxy);
+    }
+//#endif 
 }
 
 void js_register_pluginx_PluginManager(JSContext *cx, JSObject *global) {
@@ -500,6 +520,16 @@ JSBool js_pluginx_ProtocolIAP_payResult(JSContext *cx, uint32_t argc, jsval *vp)
 
 
 void js_pluginx_ProtocolIAP_finalize(JSFreeOp *fop, JSObject *obj) {
+//#ifdef COCOS2D_JAVASCRIPT
+	LOGD("js_pluginx_ProtocolIAP_finalize\n");
+    js_proxy_t* nproxy;
+    js_proxy_t* jsproxy;
+    JS_GET_NATIVE_PROXY(jsproxy, obj);
+    if (jsproxy) {
+        JS_GET_PROXY(nproxy, jsproxy->ptr);
+        JS_REMOVE_PROXY(nproxy, jsproxy);
+    }
+//#endif 
 }
 
 void js_register_pluginx_ProtocolIAP(JSContext *cx, JSObject *global) {
@@ -712,6 +742,16 @@ JSBool js_pluginx_IAPAlipay_createPlugin(JSContext *cx, uint32_t argc, jsval *vp
 
 
 void js_pluginx_IAPAlipay_finalize(JSFreeOp *fop, JSObject *obj) {
+//#ifdef COCOS2D_JAVASCRIPT
+	LOGD("js_pluginx_IAPAlipay_finalize\n");
+    js_proxy_t* nproxy;
+    js_proxy_t* jsproxy;
+    JS_GET_NATIVE_PROXY(jsproxy, obj);
+    if (jsproxy) {
+        JS_GET_PROXY(nproxy, jsproxy->ptr);
+        JS_REMOVE_PROXY(nproxy, jsproxy);
+    }
+//#endif 
 }
 
 void js_register_pluginx_IAPAlipay(JSContext *cx, JSObject *global) {
@@ -924,6 +964,16 @@ JSBool js_pluginx_IAPNd91_createPlugin(JSContext *cx, uint32_t argc, jsval *vp)
 
 
 void js_pluginx_IAPNd91_finalize(JSFreeOp *fop, JSObject *obj) {
+//#ifdef COCOS2D_JAVASCRIPT
+	LOGD("js_pluginx_IAPNd91_finalize\n");
+    js_proxy_t* nproxy;
+    js_proxy_t* jsproxy;
+    JS_GET_NATIVE_PROXY(jsproxy, obj);
+    if (jsproxy) {
+        JS_GET_PROXY(nproxy, jsproxy->ptr);
+        JS_REMOVE_PROXY(nproxy, jsproxy);
+    }
+//#endif 
 }
 
 void js_register_pluginx_IAPNd91(JSContext *cx, JSObject *global) {

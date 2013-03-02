@@ -9,6 +9,16 @@ ${current_class.methods.constructor.generate_code($current_class)}
 #set st_methods = $current_class.static_methods_clean()
 
 void js_${generator.prefix}_${current_class.class_name}_finalize(JSFreeOp *fop, JSObject *obj) {
+//#ifdef COCOS2D_JAVASCRIPT
+	LOGD("js_${generator.prefix}_${current_class.class_name}_finalize\n");
+    js_proxy_t* nproxy;
+    js_proxy_t* jsproxy;
+    JS_GET_NATIVE_PROXY(jsproxy, obj);
+    if (jsproxy) {
+        JS_GET_PROXY(nproxy, jsproxy->ptr);
+        JS_REMOVE_PROXY(nproxy, jsproxy);
+    }
+//#endif 
 }
 
 void js_register_${generator.prefix}_${current_class.class_name}(JSContext *cx, JSObject *global) {
