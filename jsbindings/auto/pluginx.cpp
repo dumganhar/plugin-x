@@ -61,6 +61,7 @@ JSBool js_pluginx_PluginProtocol_setUserData(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -78,6 +79,7 @@ JSBool js_pluginx_PluginProtocol_getUserData(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -95,6 +97,7 @@ JSBool js_pluginx_PluginProtocol_getPluginName(JSContext *cx, uint32_t argc, jsv
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -112,6 +115,7 @@ JSBool js_pluginx_PluginProtocol_getPluginVersion(JSContext *cx, uint32_t argc, 
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -129,6 +133,7 @@ JSBool js_pluginx_PluginProtocol_init(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -149,6 +154,7 @@ JSBool js_pluginx_PluginProtocol_setDebugMode(JSContext *cx, uint32_t argc, jsva
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -245,6 +251,7 @@ JSBool js_pluginx_PluginManager_unloadPlugin(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -274,6 +281,7 @@ JSBool js_pluginx_PluginManager_loadPlugin(JSContext *cx, uint32_t argc, jsval *
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -391,6 +399,7 @@ JSBool js_pluginx_ProtocolIAP_initDeveloperInfo(JSContext *cx, uint32_t argc, js
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -408,6 +417,7 @@ JSBool js_pluginx_ProtocolIAP_getPluginVersion(JSContext *cx, uint32_t argc, jsv
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -425,6 +435,7 @@ JSBool js_pluginx_ProtocolIAP_init(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -445,6 +456,7 @@ JSBool js_pluginx_ProtocolIAP_payForProduct(JSContext *cx, uint32_t argc, jsval 
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -462,6 +474,7 @@ JSBool js_pluginx_ProtocolIAP_getSDKVersion(JSContext *cx, uint32_t argc, jsval 
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -482,6 +495,7 @@ JSBool js_pluginx_ProtocolIAP_setDebugMode(JSContext *cx, uint32_t argc, jsval *
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -499,6 +513,7 @@ JSBool js_pluginx_ProtocolIAP_getPluginName(JSContext *cx, uint32_t argc, jsval 
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -611,6 +626,7 @@ JSBool js_pluginx_IAPAlipay_getPluginName(JSContext *cx, uint32_t argc, jsval *v
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -628,6 +644,7 @@ JSBool js_pluginx_IAPAlipay_getPluginVersion(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -645,6 +662,7 @@ JSBool js_pluginx_IAPAlipay_init(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -665,6 +683,7 @@ JSBool js_pluginx_IAPAlipay_initDeveloperInfo(JSContext *cx, uint32_t argc, jsva
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -685,6 +704,7 @@ JSBool js_pluginx_IAPAlipay_payForProduct(JSContext *cx, uint32_t argc, jsval *v
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -702,6 +722,7 @@ JSBool js_pluginx_IAPAlipay_getSDKVersion(JSContext *cx, uint32_t argc, jsval *v
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -722,6 +743,7 @@ JSBool js_pluginx_IAPAlipay_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -833,6 +855,7 @@ JSBool js_pluginx_IAPNd91_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -850,6 +873,7 @@ JSBool js_pluginx_IAPNd91_getPluginVersion(JSContext *cx, uint32_t argc, jsval *
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -867,6 +891,7 @@ JSBool js_pluginx_IAPNd91_init(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -887,6 +912,7 @@ JSBool js_pluginx_IAPNd91_initDeveloperInfo(JSContext *cx, uint32_t argc, jsval 
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -907,6 +933,7 @@ JSBool js_pluginx_IAPNd91_payForProduct(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -924,6 +951,7 @@ JSBool js_pluginx_IAPNd91_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -944,6 +972,7 @@ JSBool js_pluginx_IAPNd91_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1058,6 +1087,7 @@ JSBool js_pluginx_ProtocolAnalytics_logTimedEventBegin(JSContext *cx, uint32_t a
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1080,6 +1110,7 @@ JSBool js_pluginx_ProtocolAnalytics_logError(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -1100,7 +1131,26 @@ JSBool js_pluginx_ProtocolAnalytics_setCaptureUncaughtException(JSContext *cx, u
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
+	return JS_FALSE;
+}
+JSBool js_pluginx_ProtocolAnalytics_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp)
+{
+	JSObject *obj = JS_THIS_OBJECT(cx, vp);
+	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
+	cocos2d::plugin::ProtocolAnalytics* cobj = (cocos2d::plugin::ProtocolAnalytics *)(proxy ? proxy->ptr : NULL);
+	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
+
+	if (argc == 0) {
+		const char* ret = cobj->getSDKVersion();
+		jsval jsret;
+		jsret = c_string_to_jsval(cx, ret);
+		JS_SET_RVAL(cx, vp, jsret);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
 JSBool js_pluginx_ProtocolAnalytics_getPluginName(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1117,6 +1167,7 @@ JSBool js_pluginx_ProtocolAnalytics_getPluginName(JSContext *cx, uint32_t argc, 
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1134,6 +1185,7 @@ JSBool js_pluginx_ProtocolAnalytics_getPluginVersion(JSContext *cx, uint32_t arg
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1146,7 +1198,15 @@ JSBool js_pluginx_ProtocolAnalytics_logEvent(JSContext *cx, uint32_t argc, jsval
 	cocos2d::plugin::ProtocolAnalytics* cobj = (cocos2d::plugin::ProtocolAnalytics *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
-	if (argc == 2) {
+	if (argc == 1) {
+		const char* arg0;
+		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->logEvent(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+	else if (argc == 2) {
 		const char* arg0;
 		LogEventParamMap* arg1;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
@@ -1156,7 +1216,20 @@ JSBool js_pluginx_ProtocolAnalytics_logEvent(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
-	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
+	else if (argc == 3) {
+		const char* arg0;
+		LogEventParamMap* arg1;
+		double arg2;
+		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+		ok &= jsval_to_LogEventParamMap(cx, argv[1], &arg1);
+		ok &= JS_ValueToNumber(cx, argv[2], &arg2);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->logEvent(arg0, arg1, arg2);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
 JSBool js_pluginx_ProtocolAnalytics_setSessionContinueMillis(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1176,6 +1249,7 @@ JSBool js_pluginx_ProtocolAnalytics_setSessionContinueMillis(JSContext *cx, uint
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1193,6 +1267,7 @@ JSBool js_pluginx_ProtocolAnalytics_init(JSContext *cx, uint32_t argc, jsval *vp
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1213,6 +1288,7 @@ JSBool js_pluginx_ProtocolAnalytics_startSession(JSContext *cx, uint32_t argc, j
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1228,6 +1304,7 @@ JSBool js_pluginx_ProtocolAnalytics_stopSession(JSContext *cx, uint32_t argc, js
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1248,10 +1325,11 @@ JSBool js_pluginx_ProtocolAnalytics_logTimedEventEnd(JSContext *cx, uint32_t arg
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
-JSBool js_pluginx_ProtocolAnalytics_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp)
+JSBool js_pluginx_ProtocolAnalytics_aaadfasdf(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	JSObject *obj = JS_THIS_OBJECT(cx, vp);
 	js_proxy_t *proxy; JS_GET_NATIVE_PROXY(proxy, obj);
@@ -1259,12 +1337,19 @@ JSBool js_pluginx_ProtocolAnalytics_getSDKVersion(JSContext *cx, uint32_t argc, 
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
 	if (argc == 0) {
-		const char* ret = cobj->getSDKVersion();
-		jsval jsret;
-		jsret = c_string_to_jsval(cx, ret);
-		JS_SET_RVAL(cx, vp, jsret);
+		cobj->aaadfasdf();
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+	else if (argc == 1) {
+		std::string arg0;
+		ok &= jsval_to_std_string(cx, argv[0], &arg0);
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->aaadfasdf(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1285,6 +1370,7 @@ JSBool js_pluginx_ProtocolAnalytics_setDebugMode(JSContext *cx, uint32_t argc, j
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1322,15 +1408,16 @@ void js_register_pluginx_ProtocolAnalytics(JSContext *cx, JSObject *global) {
 		JS_FN("logTimedEventBegin", js_pluginx_ProtocolAnalytics_logTimedEventBegin, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logError", js_pluginx_ProtocolAnalytics_logError, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setCaptureUncaughtException", js_pluginx_ProtocolAnalytics_setCaptureUncaughtException, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("getSDKVersion", js_pluginx_ProtocolAnalytics_getSDKVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getPluginName", js_pluginx_ProtocolAnalytics_getPluginName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getPluginVersion", js_pluginx_ProtocolAnalytics_getPluginVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("logEvent", js_pluginx_ProtocolAnalytics_logEvent, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("logEvent", js_pluginx_ProtocolAnalytics_logEvent, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setSessionContinueMillis", js_pluginx_ProtocolAnalytics_setSessionContinueMillis, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("init", js_pluginx_ProtocolAnalytics_init, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("startSession", js_pluginx_ProtocolAnalytics_startSession, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("stopSession", js_pluginx_ProtocolAnalytics_stopSession, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logTimedEventEnd", js_pluginx_ProtocolAnalytics_logTimedEventEnd, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("getSDKVersion", js_pluginx_ProtocolAnalytics_getSDKVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("aaadfasdf", js_pluginx_ProtocolAnalytics_aaadfasdf, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setDebugMode", js_pluginx_ProtocolAnalytics_setDebugMode, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FS_END
 	};
@@ -1419,6 +1506,7 @@ JSBool js_pluginx_AnalyticsFlurry_setUserId(JSContext *cx, uint32_t argc, jsval 
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1441,6 +1529,7 @@ JSBool js_pluginx_AnalyticsFlurry_logError(JSContext *cx, uint32_t argc, jsval *
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -1461,6 +1550,7 @@ JSBool js_pluginx_AnalyticsFlurry_setCaptureUncaughtException(JSContext *cx, uin
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1481,6 +1571,7 @@ JSBool js_pluginx_AnalyticsFlurry_setGender(JSContext *cx, uint32_t argc, jsval 
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1496,6 +1587,7 @@ JSBool js_pluginx_AnalyticsFlurry_logPageView(JSContext *cx, uint32_t argc, jsva
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1513,6 +1605,7 @@ JSBool js_pluginx_AnalyticsFlurry_getPluginName(JSContext *cx, uint32_t argc, js
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1533,6 +1626,7 @@ JSBool js_pluginx_AnalyticsFlurry_setReportLocation(JSContext *cx, uint32_t argc
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1550,6 +1644,7 @@ JSBool js_pluginx_AnalyticsFlurry_getPluginVersion(JSContext *cx, uint32_t argc,
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1562,7 +1657,15 @@ JSBool js_pluginx_AnalyticsFlurry_logEvent(JSContext *cx, uint32_t argc, jsval *
 	cocos2d::plugin::AnalyticsFlurry* cobj = (cocos2d::plugin::AnalyticsFlurry *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
-	if (argc == 2) {
+	if (argc == 1) {
+		const char* arg0;
+		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->logEvent(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+	else if (argc == 2) {
 		const char* arg0;
 		LogEventParamMap* arg1;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
@@ -1572,7 +1675,8 @@ JSBool js_pluginx_AnalyticsFlurry_logEvent(JSContext *cx, uint32_t argc, jsval *
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
-	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
 JSBool js_pluginx_AnalyticsFlurry_setSessionContinueMillis(JSContext *cx, uint32_t argc, jsval *vp)
@@ -1592,6 +1696,7 @@ JSBool js_pluginx_AnalyticsFlurry_setSessionContinueMillis(JSContext *cx, uint32
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1612,6 +1717,7 @@ JSBool js_pluginx_AnalyticsFlurry_setAge(JSContext *cx, uint32_t argc, jsval *vp
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1629,6 +1735,7 @@ JSBool js_pluginx_AnalyticsFlurry_init(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1649,6 +1756,7 @@ JSBool js_pluginx_AnalyticsFlurry_setVersionName(JSContext *cx, uint32_t argc, j
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1669,6 +1777,7 @@ JSBool js_pluginx_AnalyticsFlurry_startSession(JSContext *cx, uint32_t argc, jsv
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1684,6 +1793,7 @@ JSBool js_pluginx_AnalyticsFlurry_stopSession(JSContext *cx, uint32_t argc, jsva
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1704,6 +1814,7 @@ JSBool js_pluginx_AnalyticsFlurry_setUseHttps(JSContext *cx, uint32_t argc, jsva
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1754,6 +1865,7 @@ JSBool js_pluginx_AnalyticsFlurry_getSDKVersion(JSContext *cx, uint32_t argc, js
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1774,6 +1886,7 @@ JSBool js_pluginx_AnalyticsFlurry_setDebugMode(JSContext *cx, uint32_t argc, jsv
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1833,7 +1946,7 @@ void js_register_pluginx_AnalyticsFlurry(JSContext *cx, JSObject *global) {
 		JS_FN("getPluginName", js_pluginx_AnalyticsFlurry_getPluginName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setReportLocation", js_pluginx_AnalyticsFlurry_setReportLocation, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getPluginVersion", js_pluginx_AnalyticsFlurry_getPluginVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("logEvent", js_pluginx_AnalyticsFlurry_logEvent, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("logEvent", js_pluginx_AnalyticsFlurry_logEvent, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setSessionContinueMillis", js_pluginx_AnalyticsFlurry_setSessionContinueMillis, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setAge", js_pluginx_AnalyticsFlurry_setAge, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("init", js_pluginx_AnalyticsFlurry_init, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -1901,6 +2014,7 @@ JSBool js_pluginx_AnalyticsUmeng_setSessionContinueMillis(JSContext *cx, uint32_
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -1951,6 +2065,7 @@ JSBool js_pluginx_AnalyticsUmeng_stopSession(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1968,6 +2083,7 @@ JSBool js_pluginx_AnalyticsUmeng_getSDKVersion(JSContext *cx, uint32_t argc, jsv
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -1983,6 +2099,7 @@ JSBool js_pluginx_AnalyticsUmeng_updateOnlineConfig(JSContext *cx, uint32_t argc
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -2003,6 +2120,7 @@ JSBool js_pluginx_AnalyticsUmeng_logTimedEventBegin(JSContext *cx, uint32_t argc
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -2025,6 +2143,7 @@ JSBool js_pluginx_AnalyticsUmeng_logError(JSContext *cx, uint32_t argc, jsval *v
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -2040,7 +2159,7 @@ JSBool js_pluginx_AnalyticsUmeng_logEventWithDuration(JSContext *cx, uint32_t ar
 	cobj = (cocos2d::plugin::AnalyticsUmeng *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
-	if (argc == 3) {
+	if (argc == 2) {
 		const char* arg0;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
 		long arg1;
@@ -2079,6 +2198,7 @@ JSBool js_pluginx_AnalyticsUmeng_checkUpdate(JSContext *cx, uint32_t argc, jsval
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -2096,6 +2216,7 @@ JSBool js_pluginx_AnalyticsUmeng_getPluginVersion(JSContext *cx, uint32_t argc, 
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -2116,6 +2237,7 @@ JSBool js_pluginx_AnalyticsUmeng_setDefaultReportPolicy(JSContext *cx, uint32_t 
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -2133,6 +2255,7 @@ JSBool js_pluginx_AnalyticsUmeng_init(JSContext *cx, uint32_t argc, jsval *vp)
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -2155,6 +2278,7 @@ JSBool js_pluginx_AnalyticsUmeng_logTimedKVEventEnd(JSContext *cx, uint32_t argc
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -2179,6 +2303,7 @@ JSBool js_pluginx_AnalyticsUmeng_logTimedKVEventBegin(JSContext *cx, uint32_t ar
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 3);
 	return JS_FALSE;
 }
@@ -2199,6 +2324,7 @@ JSBool js_pluginx_AnalyticsUmeng_setCaptureUncaughtException(JSContext *cx, uint
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -2221,6 +2347,7 @@ JSBool js_pluginx_AnalyticsUmeng_getConfigParams(JSContext *cx, uint32_t argc, j
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -2238,6 +2365,7 @@ JSBool js_pluginx_AnalyticsUmeng_getPluginName(JSContext *cx, uint32_t argc, jsv
 		JS_SET_RVAL(cx, vp, jsret);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 0);
 	return JS_FALSE;
 }
@@ -2260,6 +2388,7 @@ JSBool js_pluginx_AnalyticsUmeng_logTimedEventWithLabelBegin(JSContext *cx, uint
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -2282,6 +2411,7 @@ JSBool js_pluginx_AnalyticsUmeng_logTimedEventWithLabelEnd(JSContext *cx, uint32
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -2294,7 +2424,15 @@ JSBool js_pluginx_AnalyticsUmeng_logEvent(JSContext *cx, uint32_t argc, jsval *v
 	cocos2d::plugin::AnalyticsUmeng* cobj = (cocos2d::plugin::AnalyticsUmeng *)(proxy ? proxy->ptr : NULL);
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 
-	if (argc == 2) {
+	if (argc == 1) {
+		const char* arg0;
+		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		cobj->logEvent(arg0);
+		JS_SET_RVAL(cx, vp, JSVAL_VOID);
+		return JS_TRUE;
+	}
+	else if (argc == 2) {
 		const char* arg0;
 		LogEventParamMap* arg1;
 		std::string arg0_tmp; ok &= jsval_to_std_string(cx, argv[0], &arg0_tmp); arg0 = arg0_tmp.c_str();
@@ -2304,7 +2442,8 @@ JSBool js_pluginx_AnalyticsUmeng_logEvent(JSContext *cx, uint32_t argc, jsval *v
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
-	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
+
+	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
 JSBool js_pluginx_AnalyticsUmeng_logTimedEventEnd(JSContext *cx, uint32_t argc, jsval *vp)
@@ -2324,6 +2463,7 @@ JSBool js_pluginx_AnalyticsUmeng_logTimedEventEnd(JSContext *cx, uint32_t argc, 
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -2346,6 +2486,7 @@ JSBool js_pluginx_AnalyticsUmeng_logEventWithLabel(JSContext *cx, uint32_t argc,
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 2);
 	return JS_FALSE;
 }
@@ -2366,6 +2507,7 @@ JSBool js_pluginx_AnalyticsUmeng_setDebugMode(JSContext *cx, uint32_t argc, jsva
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
 		return JS_TRUE;
 	}
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, 1);
 	return JS_FALSE;
 }
@@ -2423,7 +2565,7 @@ void js_register_pluginx_AnalyticsUmeng(JSContext *cx, JSObject *global) {
 		JS_FN("updateOnlineConfig", js_pluginx_AnalyticsUmeng_updateOnlineConfig, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logTimedEventBegin", js_pluginx_AnalyticsUmeng_logTimedEventBegin, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logError", js_pluginx_AnalyticsUmeng_logError, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("logEventWithDuration", js_pluginx_AnalyticsUmeng_logEventWithDuration, 3, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("logEventWithDuration", js_pluginx_AnalyticsUmeng_logEventWithDuration, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("checkUpdate", js_pluginx_AnalyticsUmeng_checkUpdate, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("getPluginVersion", js_pluginx_AnalyticsUmeng_getPluginVersion, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setDefaultReportPolicy", js_pluginx_AnalyticsUmeng_setDefaultReportPolicy, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
@@ -2435,7 +2577,7 @@ void js_register_pluginx_AnalyticsUmeng(JSContext *cx, JSObject *global) {
 		JS_FN("getPluginName", js_pluginx_AnalyticsUmeng_getPluginName, 0, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logTimedEventWithLabelBegin", js_pluginx_AnalyticsUmeng_logTimedEventWithLabelBegin, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logTimedEventWithLabelEnd", js_pluginx_AnalyticsUmeng_logTimedEventWithLabelEnd, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
-		JS_FN("logEvent", js_pluginx_AnalyticsUmeng_logEvent, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
+		JS_FN("logEvent", js_pluginx_AnalyticsUmeng_logEvent, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logTimedEventEnd", js_pluginx_AnalyticsUmeng_logTimedEventEnd, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("logEventWithLabel", js_pluginx_AnalyticsUmeng_logEventWithLabel, 2, JSPROP_PERMANENT | JSPROP_ENUMERATE),
 		JS_FN("setDebugMode", js_pluginx_AnalyticsUmeng_setDebugMode, 1, JSPROP_PERMANENT | JSPROP_ENUMERATE),

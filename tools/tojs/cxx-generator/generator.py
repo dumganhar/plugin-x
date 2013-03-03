@@ -44,6 +44,24 @@ type_map = {
 
 INVALID_NATIVE_TYPE = "??"
 
+default_arg_type_arr = [
+
+# An integer literal.
+cindex.CursorKind.INTEGER_LITERAL,
+
+# A floating point number literal.
+cindex.CursorKind.FLOATING_LITERAL,
+
+# An imaginary number literal.
+cindex.CursorKind.IMAGINARY_LITERAL,
+
+# A string literal.
+cindex.CursorKind.STRING_LITERAL,
+
+# A character literal.
+cindex.CursorKind.CHARACTER_LITERAL
+
+]
 
 def native_name_from_type(ntype, underlying=False):
     kind = ntype.get_canonical().kind
@@ -196,6 +214,20 @@ class NativeField(object):
         else:
             self.pretty_name = self.name
 
+# return True if found default argument.
+def iterate_param_node(param_node):
+    for node in param_node.get_children():
+        if (node.kind == cindex.CursorKind.INTEGER_LITERAL):
+            print("node kind:" + str(node.kind))
+        if (node.kind in default_arg_type_arr):
+            print("------ "+str(node.kind))
+            return True
+
+        if (iterate_param_node(node)):
+            return True
+
+    return False
+
 class NativeFunction(object):
     def __init__(self, cursor):
         self.cursor = cursor
@@ -220,7 +252,19 @@ class NativeFunction(object):
             # mark the function as not supported if at least one argument is not supported
             if nt.not_supported:
                 self.not_supported = True
-        self.min_args = len(self.arguments)
+
+
+        found_default_arg = False
+        index = -1
+
+        for arg_node in self.cursor.get_children():
+            if arg_node.kind == cindex.CursorKind.PARM_DECL:
+                index+=1
+                if (iterate_param_node(arg_node)):
+                    found_default_arg = True
+                    break
+
+        self.min_args = index if found_default_arg else len(self.arguments)
 
     def generate_code(self, current_class=None, generator=None):
         gen = current_class.generator if current_class else generator
@@ -385,10 +429,14 @@ class NativeClass(object):
         self.generator.impl_file.write(str(register))
         self.generator.doc_file.write(str(apidoc_classfoot_js))
 
-    def _deep_iterate(self, cursor=None):
+    def _deep_iterate(self, cursor=None, depth=0):
         for node in cursor.get_children():
-            if self._process_node(node):
-                self._deep_iterate(node)
+            print("%s %s - kind = %s, type.kind= %s" % (">" * depth, node.displayname, node.kind, node.type.kind))
+            ret = self._process_node(node)
+            # print("%s ret = "+str(ret)+"   ,displayname="+node.displayname+"   ,type="+str(node.type.kind), )
+            if ret:
+            #if self._process_node(node):
+                self._deep_iterate(node, depth+1)
 
     def _process_node(self, cursor):
         '''
@@ -451,7 +499,7 @@ class NativeClass(object):
                     self.methods['constructor'] = m
         # else:
             # print >> sys.stderr, "unknown cursor: %s - %s" % (cursor.kind, cursor.displayname)
-
+        return True
 
 class Generator(object):
     def __init__(self, opts):
@@ -630,6 +678,7 @@ class Generator(object):
                 if is_fatal:
                     print("*** Found errors - can not continue")
                     raise Exception("Fatal error in parsing headers")
+
             self._deep_iterate(tu.cursor)
 
     def _deep_iterate(self, cursor, depth=0):

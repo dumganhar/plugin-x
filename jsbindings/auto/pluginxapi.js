@@ -268,6 +268,12 @@ logError : function () {},
 setCaptureUncaughtException : function () {},
 
 /**
+ * @method getSDKVersion
+ * @return A value converted from C/C++ "const char*"
+ */
+getSDKVersion : function () {},
+
+/**
  * @method getPluginName
  * @return A value converted from C/C++ "const char*"
  */
@@ -283,6 +289,7 @@ getPluginVersion : function () {},
  * @method logEvent
  * @param {const char*}
  * @param {LogEventParamMap*}
+ * @param {double}
  */
 logEvent : function () {},
 
@@ -316,10 +323,9 @@ stopSession : function () {},
 logTimedEventEnd : function () {},
 
 /**
- * @method getSDKVersion
- * @return A value converted from C/C++ "const char*"
+ * @method aaadfasdf
  */
-getSDKVersion : function () {},
+aaadfasdf : function () {},
 
 /**
  * @method setDebugMode

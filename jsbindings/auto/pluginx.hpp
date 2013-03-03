@@ -89,6 +89,7 @@ void register_all_pluginx(JSContext* cx, JSObject* obj);
 JSBool js_pluginx_ProtocolAnalytics_logTimedEventBegin(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_logError(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_setCaptureUncaughtException(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_ProtocolAnalytics_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_getPluginName(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_getPluginVersion(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_logEvent(JSContext *cx, uint32_t argc, jsval *vp);
@@ -97,7 +98,7 @@ JSBool js_pluginx_ProtocolAnalytics_init(JSContext *cx, uint32_t argc, jsval *vp
 JSBool js_pluginx_ProtocolAnalytics_startSession(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_stopSession(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_logTimedEventEnd(JSContext *cx, uint32_t argc, jsval *vp);
-JSBool js_pluginx_ProtocolAnalytics_getSDKVersion(JSContext *cx, uint32_t argc, jsval *vp);
+JSBool js_pluginx_ProtocolAnalytics_aaadfasdf(JSContext *cx, uint32_t argc, jsval *vp);
 JSBool js_pluginx_ProtocolAnalytics_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp);
 
 extern JSClass  *js_pluginx_AnalyticsFlurry_class;

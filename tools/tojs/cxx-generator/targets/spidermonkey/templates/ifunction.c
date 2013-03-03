@@ -12,31 +12,41 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 	JSB_PRECONDITION2( cobj, cx, JS_FALSE, "Invalid Native Object");
 #end if
 
-#set arg_list = ""
-#set arg_array = []
-	if (argc == ${min_args}) {
-#set $count = 0
-#for $arg in $arguments
-		${arg.to_string($generator)} arg${count};
-#set $count = $count + 1
-#end for
-#set $count = 0
-#for $arg in $arguments
-		${arg.to_native({"generator": $generator,
-						 "in_value": "argv[" + str(count) + "]",
-						 "out_value": "arg" + str(count),
-						 "class_name": $class_name,
-						 "level": 2,
-						 "ntype": str($arg)})};
-	#set $arg_array += ["arg"+str(count)]
-	#set $count = $count + 1
-#end for
-	#if $min_args > 0
-		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+#if len($arguments) >= $min_args
+	#set arg_count = len($arguments)
+	#set arg_idx = $min_args
+	#while $arg_idx <= $arg_count
+	#if $arg_idx == $min_args
+	if (argc == ${arg_idx}) {
+	#else
+	else if (argc == ${arg_idx}) {
 	#end if
-#set $arg_list = ", ".join($arg_array)
-#if $is_constructor
-		${namespaced_class_name}* cobj = new ${namespaced_class_name}($arg_list);
+		#set $count = 0
+		#while $count < $arg_idx
+			#set $arg = $arguments[$count]
+		${arg.to_string($generator)} arg${count};
+			#set $count = $count + 1
+		#end while
+		#set $count = 0
+		#set arg_list = ""
+		#set arg_array = []
+		#while $count < $arg_idx
+			#set $arg = $arguments[$count]
+		${arg.to_native({"generator": $generator,
+							 "in_value": "argv[" + str(count) + "]",
+							 "out_value": "arg" + str(count),
+							 "class_name": $class_name,
+							 "level": 2,
+							 "ntype": str($arg)})};
+			#set $arg_array += ["arg"+str(count)]
+			#set $count = $count + 1
+		#end while
+		#if $arg_idx > 0
+		JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+		#end if
+		#set $arg_list = ", ".join($arg_array)
+		#if $is_constructor
+				${namespaced_class_name}* cobj = new ${namespaced_class_name}($arg_list);
 //\#ifdef COCOS2D_JAVASCRIPT
 //		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
 //		if (_ccobj) {
@@ -54,25 +64,29 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 		js_proxy_t *p;
 		JS_NEW_PROXY(p, cobj, obj);
 //\#ifdef COCOS2D_JAVASCRIPT
-		JS_AddNamedObjectRoot(cx, &p->obj, "${namespaced_class_name}");
+//		JS_AddNamedObjectRoot(cx, &p->obj, "${namespaced_class_name}");
 //\#endif
-#else
-	#if $ret_type.name != "void"
+		#else
+			#if $ret_type.name != "void"
 		${ret_type} ret = cobj->${func_name}($arg_list);
 		jsval jsret;
 		${ret_type.from_native({"generator": $generator,
-								"in_value": "ret",
-								"out_value": "jsret",
-								"ntype": str($ret_type),
-								"level": 2})};
+									"in_value": "ret",
+									"out_value": "jsret",
+									"ntype": str($ret_type),
+									"level": 2})};
 		JS_SET_RVAL(cx, vp, jsret);
-	#else
+			#else
 		cobj->${func_name}($arg_list);
 		JS_SET_RVAL(cx, vp, JSVAL_VOID);
-	#end if
-#end if
+			#end if
+		#end if
 		return JS_TRUE;
 	}
+		#set $arg_idx = $arg_idx + 1
+	#end while
+#end if
+
 	JS_ReportError(cx, "wrong number of arguments: %d, was expecting %d", argc, ${min_args});
 	return JS_FALSE;
 }
