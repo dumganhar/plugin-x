@@ -75,15 +75,18 @@ def build_namespace(cursor, namespaces=[]):
     '''
     if cursor:
         parent = cursor.semantic_parent
-        if parent and parent.kind == cindex.CursorKind.NAMESPACE:
-            namespaces.append(parent.displayname)
-            build_namespace(parent, namespaces)
-    namespaces.reverse()
-    return "::".join(namespaces)
+        if parent:
+            if parent.kind == cindex.CursorKind.NAMESPACE or parent.kind == cindex.CursorKind.CLASS_DECL:
+                namespaces.append(parent.displayname)
+                build_namespace(parent, namespaces)
+
+    return namespaces
 
 
 def namespaced_name(declaration_cursor):
-    ns = build_namespace(declaration_cursor, [])
+    ns_list = build_namespace(declaration_cursor, [])
+    ns_list.reverse()
+    ns = "::".join(ns_list)
     if len(ns) > 0:
         return ns + "::" + declaration_cursor.displayname
     return declaration_cursor.displayname
