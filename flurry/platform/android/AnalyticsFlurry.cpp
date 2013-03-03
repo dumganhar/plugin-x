@@ -215,4 +215,9 @@ void AnalyticsFlurry::logTimedEventEnd(const char* eventId)
     ProtocolAnalytics::logTimedEventEnd(eventId);
 }
 
+void AnalyticsFlurry::logTimedEventEnd(const char* eventId, LogEventParamMap* paramMap)
+{
+	ProtocolAnalytics::logTimedEventEnd(eventId);
+}
+
 }} // namespace cocos2d { namespace plugin {
