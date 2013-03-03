@@ -116,6 +116,12 @@ JSBool jsval_to_long_long(JSContext *cx, jsval vp, long long* r) {
     return JS_TRUE;
 }
 
+JSBool jsval_to_long(JSContext *cx, jsval v, long* ret)
+{
+    *ret = JSVAL_TO_INT(v);
+    return JS_TRUE;
+}
+
 JSBool jsval_to_std_string(JSContext *cx, jsval v, std::string* ret) {
     JSString *tmp = JS_ValueToString(cx, v);
     JSB_PRECONDITION2(tmp, cx, JS_FALSE, "Error processing arguments");
@@ -160,6 +166,11 @@ JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret)
     return jsval_to_TProductInfo(cx, v, ret);
 }
 
+JSBool jsval_to_LogEventParamMap(JSContext *cx, jsval v, LogEventParamMap** ret)
+{
+    return JS_TRUE;
+}
+
 // From native type to jsval
 jsval int32_to_jsval( JSContext *cx, int32_t number )
 {
@@ -177,6 +188,11 @@ jsval long_long_to_jsval(JSContext* cx, long long v) {
     data[0] = ((uint32_t *)(&v))[0];
     data[1] = ((uint32_t *)(&v))[1];
     return OBJECT_TO_JSVAL(tmp);
+}
+
+jsval long_to_jsval(JSContext* cx, long v)
+{
+    return INT_TO_JSVAL(v);
 }
 
 jsval std_string_to_jsval(JSContext* cx, std::string& v) {
@@ -207,6 +223,10 @@ jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret)
     return OBJECT_TO_JSVAL(tmp);
 }
 
+jsval LogEventParamMap_to_jsval(JSContext *cx, LogEventParamMap*& ret)
+{
+    return JSVAL_NULL;
+}
 
 }// namespace pluginx {
 

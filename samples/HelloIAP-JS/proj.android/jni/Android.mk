@@ -25,6 +25,8 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static \
         PluginAlipayStatic \
         PluginNd91Static \
+        PluginFlurryStatic \
+        PluginUmengStatic \
         PluginProtocolStatic
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
@@ -41,4 +43,6 @@ $(call import-module,scripting/javascript/spidermonkey-android)
 $(call import-module,scripting/javascript/bindings)
 $(call import-module,alipay/android) \
 $(call import-module,nd91/android) \
+$(call import-module,flurry/android) \
+$(call import-module,umeng/android) \
 $(call import-module,protocols/android)
