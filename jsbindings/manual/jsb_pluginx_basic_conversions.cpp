@@ -168,7 +168,13 @@ JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret)
 
 JSBool jsval_to_LogEventParamMap(JSContext *cx, jsval v, LogEventParamMap** ret)
 {
-    return JS_TRUE;
+    JSBool jsret = JS_FALSE;
+    LogEventParamMap* tmp = new LogEventParamMap();
+    jsret = jsval_to_TProductInfo(cx, v, *tmp);
+    if (jsret) {
+        *ret = tmp;
+    }
+    return jsret;
 }
 
 // From native type to jsval

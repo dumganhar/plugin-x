@@ -16,11 +16,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 	#set arg_count = len($arguments)
 	#set arg_idx = $min_args
 	#while $arg_idx <= $arg_count
-	#if $arg_idx == $min_args
 	if (argc == ${arg_idx}) {
-	#else
-	else if (argc == ${arg_idx}) {
-	#end if
 		#set $count = 0
 		#while $count < $arg_idx
 			#set $arg = $arguments[$count]

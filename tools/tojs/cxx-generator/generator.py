@@ -431,7 +431,7 @@ class NativeClass(object):
 
     def _deep_iterate(self, cursor=None, depth=0):
         for node in cursor.get_children():
-            print("%s %s - kind = %s, type.kind= %s" % (">" * depth, node.displayname, node.kind, node.type.kind))
+            # print("%s %s - kind = %s, type.kind= %s" % (">" * depth, node.displayname, node.kind, node.type.kind))
             ret = self._process_node(node)
             # print("%s ret = "+str(ret)+"   ,displayname="+node.displayname+"   ,type="+str(node.type.kind), )
             if ret:
@@ -484,6 +484,8 @@ class NativeClass(object):
                             previous_m.append(m)
                         else:
                             self.methods[registration_name] = NativeOverloadedFunction([m, previous_m])
+            return True
+
         elif self._current_visibility == cindex.AccessSpecifierKind.PUBLIC and cursor.kind == cindex.CursorKind.CONSTRUCTOR and not self.is_abstract:
             m = NativeFunction(cursor)
             m.is_constructor = True
@@ -497,9 +499,10 @@ class NativeClass(object):
                     m = NativeOverloadedFunction([m, previous_m])
                     m.is_constructor = True
                     self.methods['constructor'] = m
+            return True
         # else:
             # print >> sys.stderr, "unknown cursor: %s - %s" % (cursor.kind, cursor.displayname)
-        return True
+        return False
 
 class Generator(object):
     def __init__(self, opts):

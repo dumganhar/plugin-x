@@ -46,7 +46,12 @@ conversions:
       ${($level + 0) * '\t'}} while (0)
     TProductInfo: "ok &= jsval_to_TProductInfo(cx, ${in_value}, &${out_value})"
     TDeveloperInfo: "ok &= jsval_to_TDeveloperInfo(cx, ${in_value}, &${out_value})"
-    LogEventParamMap*: "ok &= jsval_to_LogEventParamMap(cx, ${in_value}, &${out_value})"
+    LogEventParamMap*: |
+      LogEventParamMap ${out_value}_tmp;
+      ${($level + 0) * '\t'}do {
+      ${($level + 1) * '\t'}ok &= jsval_to_LogEventParamMap(cx, ${in_value}, &${out_value});
+      ${($level + 1) * '\t'}if (ok) { ${out_value}_tmp = *${out_value}; delete ${out_value}; ${out_value} = &${out_value}_tmp; } else { ${out_value} = NULL; }
+      ${($level + 0) * '\t'}} while(0)
     long: "ok &= jsval_to_long(cx, ${in_value}, (long *)&${out_value})"
 
   from_native:
