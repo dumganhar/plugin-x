@@ -447,13 +447,13 @@ class NativeClass(object):
         '''
         if cursor.kind == cindex.CursorKind.CXX_BASE_SPECIFIER and not self.class_name in self.generator.base_objects:
             parent = cursor.get_definition()
-            if parent and self.generator.in_listed_classes(parent.displayname):
-                if not self.generator.generated_classes.has_key(parent.displayname):
-                    parent = NativeClass(parent, self.generator)
-                    self.generator.generated_classes[parent.class_name] = parent
-                else:
-                    parent = self.generator.generated_classes[parent.displayname]
-                self.parents.append(parent)
+            #if parent and self.generator.in_listed_classes(parent.displayname):
+            if not self.generator.generated_classes.has_key(parent.displayname):
+                parent = NativeClass(parent, self.generator)
+                self.generator.generated_classes[parent.class_name] = parent
+            else:
+                parent = self.generator.generated_classes[parent.displayname]
+            self.parents.append(parent)
         elif cursor.kind == cindex.CursorKind.FIELD_DECL:
             self.fields.append(NativeField(cursor))
         elif cursor.kind == cindex.CursorKind.CXX_ACCESS_SPEC_DECL:

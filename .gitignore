@@ -77,6 +77,8 @@ Device-Release/
 
 # Ignore vim swaps
 *.swp
+# Ignore pyCharm project file
+.idea
 
 # Ignore publish files
 /publish/*

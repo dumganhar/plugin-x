@@ -8,14 +8,14 @@ LOCAL_MODULE_FILENAME := libgame
 
 LOCAL_SRC_FILES := hellocpp/main.cpp \
                    ../../Classes/AppDelegate.cpp \
-                   ../../../../jsbindings/jsb_pluginx_registration.cpp \
-                   ../../../../jsbindings/auto/pluginx.cpp \
+                   ../../../../jsbindings/auto/pluginx_alipay.cpp \
+                   ../../../../jsbindings/auto/pluginx_nd91.cpp \
+                   ../../../../jsbindings/auto/pluginx_protocols.cpp \
                    ../../../../jsbindings/manual/pluginxUTF8.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_basic_conversions.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_manual_iap.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_extension_registration.cpp \
                    ../../../../jsbindings/manual/jsb_pluginx_spidermonkey_specifics.cpp 
-
 
 LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
                     $(LOCAL_PATH)/../../../../jsbindings \
@@ -25,8 +25,6 @@ LOCAL_C_INCLUDES := $(LOCAL_PATH)/../../Classes \
 LOCAL_WHOLE_STATIC_LIBRARIES := cocos2dx_static \
         PluginAlipayStatic \
         PluginNd91Static \
-        PluginFlurryStatic \
-        PluginUmengStatic \
         PluginProtocolStatic
 
 LOCAL_WHOLE_STATIC_LIBRARIES += cocosdenshion_static
@@ -43,6 +41,4 @@ $(call import-module,scripting/javascript/spidermonkey-android)
 $(call import-module,scripting/javascript/bindings)
 $(call import-module,alipay/android) \
 $(call import-module,nd91/android) \
-$(call import-module,flurry/android) \
-$(call import-module,umeng/android) \
 $(call import-module,protocols/android)

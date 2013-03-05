@@ -8,9 +8,13 @@ ${current_class.methods.constructor.generate_code($current_class)}
 #set methods = $current_class.methods_clean()
 #set st_methods = $current_class.static_methods_clean()
 
-void js_${generator.prefix}_${current_class.class_name}_finalize(JSFreeOp *fop, JSObject *obj) {
+#if len($current_class.parents) > 0
+extern JSObject *js_${current_class.parents[0].class_name}_prototype;
+#end if
+
+void js_${current_class.class_name}_finalize(JSFreeOp *fop, JSObject *obj) {
 //#ifdef COCOS2D_JAVASCRIPT
-	LOGD("js_${generator.prefix}_${current_class.class_name}_finalize\n");
+	LOGD("js_${current_class.class_name}_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
     JS_GET_NATIVE_PROXY(jsproxy, obj);
@@ -22,17 +26,17 @@ void js_${generator.prefix}_${current_class.class_name}_finalize(JSFreeOp *fop, 
 }
 
 void js_register_${generator.prefix}_${current_class.class_name}(JSContext *cx, JSObject *global) {
-	js_${generator.prefix}_${current_class.class_name}_class = (JSClass *)calloc(1, sizeof(JSClass));
-	js_${generator.prefix}_${current_class.class_name}_class->name = "${current_class.target_class_name}";
-	js_${generator.prefix}_${current_class.class_name}_class->addProperty = JS_PropertyStub;
-	js_${generator.prefix}_${current_class.class_name}_class->delProperty = JS_PropertyStub;
-	js_${generator.prefix}_${current_class.class_name}_class->getProperty = JS_PropertyStub;
-	js_${generator.prefix}_${current_class.class_name}_class->setProperty = JS_StrictPropertyStub;
-	js_${generator.prefix}_${current_class.class_name}_class->enumerate = JS_EnumerateStub;
-	js_${generator.prefix}_${current_class.class_name}_class->resolve = JS_ResolveStub;
-	js_${generator.prefix}_${current_class.class_name}_class->convert = JS_ConvertStub;
-	js_${generator.prefix}_${current_class.class_name}_class->finalize = js_${generator.prefix}_${current_class.class_name}_finalize;
-	js_${generator.prefix}_${current_class.class_name}_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
+	js_${current_class.class_name}_class = (JSClass *)calloc(1, sizeof(JSClass));
+	js_${current_class.class_name}_class->name = "${current_class.target_class_name}";
+	js_${current_class.class_name}_class->addProperty = JS_PropertyStub;
+	js_${current_class.class_name}_class->delProperty = JS_PropertyStub;
+	js_${current_class.class_name}_class->getProperty = JS_PropertyStub;
+	js_${current_class.class_name}_class->setProperty = JS_StrictPropertyStub;
+	js_${current_class.class_name}_class->enumerate = JS_EnumerateStub;
+	js_${current_class.class_name}_class->resolve = JS_ResolveStub;
+	js_${current_class.class_name}_class->convert = JS_ConvertStub;
+	js_${current_class.class_name}_class->finalize = js_${current_class.class_name}_finalize;
+	js_${current_class.class_name}_class->flags = JSCLASS_HAS_RESERVED_SLOTS(2);
 
 	#if len($current_class.fields) > 0
 	static JSPropertySpec properties[] = {
@@ -66,16 +70,16 @@ void js_register_${generator.prefix}_${current_class.class_name}(JSContext *cx, 
 	JSFunctionSpec *st_funcs = NULL;
 	#end if
 
-	js_${generator.prefix}_${current_class.class_name}_prototype = JS_InitClass(
+	js_${current_class.class_name}_prototype = JS_InitClass(
 		cx, global,
 #if len($current_class.parents) > 0
-		js_${generator.prefix}_${current_class.parents[0].class_name}_prototype,
+		js_${current_class.parents[0].class_name}_prototype,
 #else
 		NULL, // parent proto
 #end if
-		js_${generator.prefix}_${current_class.class_name}_class,
+		js_${current_class.class_name}_class,
 #if has_constructor
-		js_${generator.prefix}_${current_class.class_name}_constructor, 0, // constructor
+		js_${current_class.class_name}_constructor, 0, // constructor
 #else if $current_class.is_abstract
 		empty_constructor, 0,
 #else
@@ -97,10 +101,10 @@ void js_register_${generator.prefix}_${current_class.class_name}(JSContext *cx, 
 	if (!p) {
 		p = (js_type_class_t *)malloc(sizeof(js_type_class_t));
 		p->type = typeId;
-		p->jsclass = js_${generator.prefix}_${current_class.class_name}_class;
-		p->proto = js_${generator.prefix}_${current_class.class_name}_prototype;
+		p->jsclass = js_${current_class.class_name}_class;
+		p->proto = js_${current_class.class_name}_prototype;
 #if len($current_class.parents) > 0
-		p->parentProto = js_${generator.prefix}_${current_class.parents[0].class_name}_prototype;
+		p->parentProto = js_${current_class.parents[0].class_name}_prototype;
 #else
 		p->parentProto = NULL;
 #end if
