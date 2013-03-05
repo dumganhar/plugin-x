@@ -1,4 +1,4 @@
-## ===== static function implementation template - for overloaded functions
+## ===== instance function implementation template - for overloaded functions
 JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 {
 	jsval *argv = JS_ARGV(cx, vp);
@@ -35,10 +35,10 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 							 "ntype": str($arg)})};
 				#set $arg_array += ["arg"+str(count)]
 				#set $count = $count + 1
-			#end while
-			#if arg_idx > 0
-			if (!ok) break;
+			#if $arg_idx > 0
+			if (!ok) { ok = JS_TRUE; break; }
 			#end if
+			#end while
 			#set $arg_list = ", ".join($arg_array)
 		#end if
 		#if $is_constructor
