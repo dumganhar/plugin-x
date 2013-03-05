@@ -14,18 +14,18 @@ void register_pluginx_js_extensions(JSContext* cx, JSObject* global)
     // first, try to get the ns
     jsval nsval;
     JSObject *ns;
-    JS_GetProperty(cx, global, "pluginx", &nsval);
+    JS_GetProperty(cx, global, "plugin", &nsval);
     if (nsval == JSVAL_VOID) {
         ns = JS_NewObject(cx, NULL, NULL, NULL);
         nsval = OBJECT_TO_JSVAL(ns);
-        JS_SetProperty(cx, global, "pluginx", &nsval);
+        JS_SetProperty(cx, global, "plugin", &nsval);
     } else {
         JS_ValueToObject(cx, nsval, &ns);
     }
 
     JSObject *tmpObj;
 
-    tmpObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return pluginx.ProtocolIAP; })()"));
+    tmpObj = JSVAL_TO_OBJECT(anonEvaluate(cx, global, "(function () { return plugin.ProtocolIAP; })()"));
     JS_DefineFunction(cx, tmpObj, "setResultListener", js_pluginx_ProtocolIAP_setResultListener, 1, JSPROP_READONLY | JSPROP_PERMANENT);
 
 }

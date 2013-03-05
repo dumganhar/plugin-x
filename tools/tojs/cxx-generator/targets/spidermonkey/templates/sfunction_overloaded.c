@@ -36,7 +36,7 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 										 "in_value": "ret",
 										 "out_value": "jsret",
 										 "ntype": str($func.ret_type),
-										 "level": 2})};
+										 "level": 3})};
 			JS_SET_RVAL(cx, vp, jsret);
 			#else
 			${namespaced_class_name}::${func.func_name}($arg_list);

@@ -63,7 +63,10 @@ JSBool jsval_to_int32( JSContext *cx, jsval vp, int32_t *outval )
     JSBool ok = JS_TRUE;
     double dp;
     ok &= JS_ValueToNumber(cx, vp, &dp);
-    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    if (!ok) {
+        LOGD("jsval_to_int32: the argument is not a number");
+        return JS_FALSE;
+    }
     ok &= !isnan(dp);
     JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 
@@ -77,7 +80,10 @@ JSBool jsval_to_uint32( JSContext *cx, jsval vp, uint32_t *outval )
     JSBool ok = JS_TRUE;
     double dp;
     ok &= JS_ValueToNumber(cx, vp, &dp);
-    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    if (!ok) {
+        LOGD("jsval_to_uint32: the argument is not a number");
+        return JS_FALSE;
+    }
     ok &= !isnan(dp);
     JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 
@@ -91,7 +97,10 @@ JSBool jsval_to_uint16( JSContext *cx, jsval vp, uint16_t *outval )
     JSBool ok = JS_TRUE;
     double dp;
     ok &= JS_ValueToNumber(cx, vp, &dp);
-    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+    if (!ok) {
+        LOGD("jsval_to_uint16: the argument is not a number");
+        return JS_FALSE;
+    }
     ok &= !isnan(dp);
     JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
 
@@ -103,7 +112,11 @@ JSBool jsval_to_uint16( JSContext *cx, jsval vp, uint16_t *outval )
 JSBool jsval_to_long_long(JSContext *cx, jsval vp, long long* r) {
     JSObject *tmp_arg;
     JSBool ok = JS_ValueToObject( cx, vp, &tmp_arg );
-    JSB_PRECONDITION2( ok, cx, JS_FALSE, "Error converting value to object");
+    if (!ok) {
+        LOGD("jsval_to_long_long: Error converting value to object");
+        return JS_FALSE;
+    }
+
     JSB_PRECONDITION2( tmp_arg && JS_IsTypedArrayObject( tmp_arg ), cx, JS_FALSE, "Not a TypedArray object");
     JSB_PRECONDITION2( JS_GetTypedArrayByteLength( tmp_arg ) == sizeof(long long), cx, JS_FALSE, "Invalid Typed Array length");
     
@@ -116,15 +129,29 @@ JSBool jsval_to_long_long(JSContext *cx, jsval vp, long long* r) {
     return JS_TRUE;
 }
 
-JSBool jsval_to_long(JSContext *cx, jsval v, long* ret)
+JSBool jsval_to_long(JSContext *cx, jsval vp, long* ret)
 {
-    *ret = JSVAL_TO_INT(v);
-    return JS_TRUE;
+    JSBool ok = JS_TRUE;
+    double dp;
+    ok &= JS_ValueToNumber(cx, vp, &dp);
+    if (!ok) {
+        LOGD("jsval_to_long: the argument is not a number");
+        return JS_FALSE;
+    }
+    ok &= !isnan(dp);
+    JSB_PRECONDITION2(ok, cx, JS_FALSE, "Error processing arguments");
+
+    *ret = (long)dp;
+
+    return ok;
 }
 
 JSBool jsval_to_std_string(JSContext *cx, jsval v, std::string* ret) {
     JSString *tmp = JS_ValueToString(cx, v);
-    JSB_PRECONDITION2(tmp, cx, JS_FALSE, "Error processing arguments");
+    if (!tmp) {
+        LOGD("jsval_to_std_string: the jsval is not a string.");
+        return JS_FALSE;
+    }
 
     JSStringWrapper str(tmp, cx);
     *ret = str.get();
@@ -134,6 +161,11 @@ JSBool jsval_to_std_string(JSContext *cx, jsval v, std::string* ret) {
 JSBool jsval_to_TProductInfo(JSContext *cx, jsval v, TProductInfo* ret)
 {
     JSObject* tmp = JSVAL_TO_OBJECT(v);
+    if (!tmp) {
+        LOGD("jsval_to_TProductInfo: the jsval is not an object.");
+        return JS_FALSE;
+    }
+
     JSObject* it = JS_NewPropertyIterator(cx, tmp);
 
     while (true)
@@ -169,11 +201,15 @@ JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret)
 JSBool jsval_to_LogEventParamMap(JSContext *cx, jsval v, LogEventParamMap** ret)
 {
     JSBool jsret = JS_FALSE;
-    LogEventParamMap* tmp = new LogEventParamMap();
-    jsret = jsval_to_TProductInfo(cx, v, *tmp);
-    if (jsret) {
-        *ret = tmp;
+    if (v.isObject())
+    {
+        LogEventParamMap* tmp = new LogEventParamMap();
+        jsret = jsval_to_TProductInfo(cx, v, tmp);
+        if (jsret) {
+            *ret = tmp;
+        }
     }
+
     return jsret;
 }
 
@@ -230,7 +266,7 @@ jsval TProductInfo_to_jsval(JSContext *cx, TProductInfo& ret)
 }
 
 jsval LogEventParamMap_to_jsval(JSContext *cx, LogEventParamMap*& ret)
-{
+{// TODO:
     return JSVAL_NULL;
 }
 
