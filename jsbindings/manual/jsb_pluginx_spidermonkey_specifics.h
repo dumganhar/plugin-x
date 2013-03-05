@@ -13,13 +13,19 @@
 #include <android/log.h>
 #endif
 
+#define PLUGINX_JSB_DEBUG 0
+
 namespace pluginx {
 
+#if PLUGINX_JSB_DEBUG
 #ifdef ANDROID
-#define  LOG_TAG    "jsb_pluginx"
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+    #define  LOG_TAG    "jsb_pluginx"
+    #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
+    #else
+    #define  LOGD(...) printf(__VA_ARGS__)
+    #endif
 #else
-#define  LOGD(...) printf(__VA_ARGS__)
+    #define  LOGD(...)       do {} while (0)
 #endif
 
 #define JSB_PRECONDITION( condition, ...) do {							\
