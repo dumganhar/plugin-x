@@ -39,7 +39,7 @@ var MyPurchase = cc.Class.extend({
     loadIAPPlugin: function() {
 
         // init alipay plugin
-        this._pAlipay = pluginx.PluginManager.getInstance().loadPlugin("IAPAlipay");
+        this._pAlipay = plugin.PluginManager.getInstance().loadPlugin("IAPAlipay");
         var pAlipayInfo = {};
 
         if (Object.keys(pAlipayInfo).length == 0)
@@ -58,7 +58,7 @@ var MyPurchase = cc.Class.extend({
         if (Object.keys(pNdInfo).length == 0) {
             cc.log("Nd91 Warning: Developer info is empty. PLZ fill your alipay info to pAlipayInfo)");
         }
-        this._pNd91 = pluginx.PluginManager.getInstance().loadPlugin("IAPNd91");
+        this._pNd91 = plugin.PluginManager.getInstance().loadPlugin("IAPNd91");
         this._pNd91.setDebugMode(true);
         this._pNd91.initDeveloperInfo(pNdInfo);
     },
@@ -66,13 +66,13 @@ var MyPurchase = cc.Class.extend({
     unloadIAPPlugin: function() {
         if (this._pAlipay)
         {
-            pluginx.PluginManager.getInstance().unloadPlugin("IAPAlipay");
+            plugin.PluginManager.getInstance().unloadPlugin("IAPAlipay");
             this._pAlipay = null;
         }
 
         if (this._pNd91)
         {
-            pluginx.PluginManager.getInstance().unloadPlugin("IAPNd91");
+            plugin.PluginManager.getInstance().unloadPlugin("IAPNd91");
             this._pNd91 = null;
         }
     },
@@ -166,7 +166,7 @@ var IAPTestLayer = cc.Layer.extend({
     onEnter:function () {
         this._super();
         MyPurchase.getInstance().loadIAPPlugin();
-        pluginx.ProtocolIAP.setResultListener(this);
+        plugin.ProtocolIAP.setResultListener(this);
 
         var director = cc.Director.getInstance();
         var size = director.getWinSize();
@@ -229,7 +229,7 @@ var MyScene = cc.Scene.extend({
     onEnter:function () {
         this._super();
         var layer = new IAPTestLayer();
-        this.addChild(layer);
         layer.init();
+        this.addChild(layer);
     }
 });
