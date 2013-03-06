@@ -41,6 +41,7 @@ PLUGIN_ROOT="$DIR/../../.."
 COCOS2DX_ROOT="$DIR/../../../.."
 APP_ROOT="$DIR/.."
 APP_ANDROID_ROOT="$DIR"
+BINDINGS_JS_ROOT="$COCOS2DX_ROOT/scripting/javascript/bindings/js"
 
 echo "PLUGIN_ROOT = $PLUGIN_ROOT"
 echo "NDK_ROOT = $NDK_ROOT"
@@ -67,6 +68,11 @@ if [ -f "$file" ]; then
     cp "$file" "$APP_ANDROID_ROOT"/assets
 fi
 done
+
+# copy bindings/*.js into assets' root
+cp -f "$BINDINGS_JS_ROOT"/* "$APP_ANDROID_ROOT"/assets
+# copy plugin js into assets' path
+cp -f "$PLUGIN_ROOT/jsbindings/js"/* "$APP_ANDROID_ROOT"/assets
 
 if [[ "$buildexternalsfromsource" ]]; then
     echo "Building external dependencies from source"
