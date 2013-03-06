@@ -65,12 +65,12 @@ void AppDelegate::applicationDidEnterBackground()
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->pauseAllEffects();
 
-    // ScriptingCore* sc = ScriptingCore::getInstance();
-    // jsval nsval;
-    // JS_GetProperty(sc->getGlobalContext(), sc->getGlobalObject(), "plugin", &nsval);
-    // if (nsval != JSVAL_VOID) {
-    //     sc->executeFunctionWithOwner(nsval, "onApplicationDidEnterBackground", JSVAL_NULL);
-    // }
+    ScriptingCore* sc = ScriptingCore::getInstance();
+    jsval nsval;
+    JS_GetProperty(sc->getGlobalContext(), sc->getGlobalObject(), "plugin", &nsval);
+    if (nsval != JSVAL_VOID) {
+        sc->executeFunctionWithOwner(nsval, "onApplicationDidEnterBackground", JSVAL_NULL);
+    }
 }
 
 // this function will be called when the app is active again
@@ -80,10 +80,10 @@ void AppDelegate::applicationWillEnterForeground()
     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     SimpleAudioEngine::sharedEngine()->resumeAllEffects();
 
-    // ScriptingCore* sc = ScriptingCore::getInstance();
-    // jsval nsval;
-    // JS_GetProperty(sc->getGlobalContext(), sc->getGlobalObject(), "plugin", &nsval);
-    // if (nsval != JSVAL_VOID) {
-    //     sc->executeFunctionWithOwner(nsval, "onApplicationWillEnterForeground", JSVAL_NULL);
-    // }
+    ScriptingCore* sc = ScriptingCore::getInstance();
+    jsval nsval;
+    JS_GetProperty(sc->getGlobalContext(), sc->getGlobalObject(), "plugin", &nsval);
+    if (nsval != JSVAL_VOID) {
+        sc->executeFunctionWithOwner(nsval, "onApplicationWillEnterForeground", JSVAL_NULL);
+    }
 }

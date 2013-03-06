@@ -46,7 +46,7 @@ plugin.onApplicationDidEnterBackground = function() {
 plugin.onApplicationWillEnterForeground = function() {
     if (g_pAnalytics != null) {
         cc.log("plugin.onApplicationWillEnterForeground.");
-        g_pAnalytics.startSession();
+        g_pAnalytics.startSession(s_strAppKey);
     }
 };
 
