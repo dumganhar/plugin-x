@@ -1,8 +1,6 @@
-#include "jsapi.h"
-#include "jsfriendapi.h"
+#include "pluginx_nd91.hpp"
 #include "jsb_pluginx_spidermonkey_specifics.h"
 #include "jsb_pluginx_basic_conversions.h"
-#include "pluginx_nd91.hpp"
 #include "IAPNd91.h"
 
 using namespace pluginx;

@@ -1,8 +1,6 @@
-#include "jsapi.h"
-#include "jsfriendapi.h"
+#include "pluginx_chinaunicom.hpp"
 #include "jsb_pluginx_spidermonkey_specifics.h"
 #include "jsb_pluginx_basic_conversions.h"
-#include "pluginx_chinaunicom.hpp"
 #include "IAPChinaUnicom.h"
 
 using namespace pluginx;

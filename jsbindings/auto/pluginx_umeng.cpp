@@ -1,8 +1,6 @@
-#include "jsapi.h"
-#include "jsfriendapi.h"
+#include "pluginx_umeng.hpp"
 #include "jsb_pluginx_spidermonkey_specifics.h"
 #include "jsb_pluginx_basic_conversions.h"
-#include "pluginx_umeng.hpp"
 #include "AnalyticsUmeng.h"
 
 using namespace pluginx;

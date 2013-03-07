@@ -1,8 +1,6 @@
-#include "jsapi.h"
-#include "jsfriendapi.h"
+#include "cocos2dx_other.hpp"
 #include "jsb_pluginx_spidermonkey_specifics.h"
 #include "jsb_pluginx_basic_conversions.h"
-#include "cocos2dx_other.hpp"
 #include "cocos2d.h"
 
 using namespace pluginx;
