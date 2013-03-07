@@ -524,6 +524,8 @@ class Generator(object):
         self.rename_functions = {}
         self.rename_classes = {}
         self.out_file = opts['out_file']
+        self.script_control_cpp = opts['script_control_cpp'] == "yes"
+
         if opts['skip']:
             list_of_skips = re.split(",\n?", opts['skip'])
             for skip in list_of_skips:
@@ -784,7 +786,8 @@ def main():
                 'skip': config.get(s, 'skip'),
                 'rename_functions': config.get(s, 'rename_functions'),
                 'rename_classes': config.get(s, 'rename_classes'),
-                'out_file': opts.out_file or config.get(s, 'prefix')
+                'out_file': opts.out_file or config.get(s, 'prefix'),
+                'script_control_cpp': config.get(s, 'script_control_cpp') if config.has_option(s, 'script_control_cpp') else 'no'
                 }
             generator = Generator(gen_opts)
             generator.generate_code()

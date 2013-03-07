@@ -9,12 +9,6 @@ template<class T>
 static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 	TypeTest<T> t;
 	T* cobj = new T();
-//#ifdef COCOS2D_JAVASCRIPT
-	// cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
-	// if (_ccobj) {
-	// 	_ccobj->autorelease();
-	// }
-//#endif
 	js_type_class_t *p;
 	uint32_t typeId = t.s_id();
 	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
@@ -22,9 +16,6 @@ static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSObject *_tmp = JS_NewObject(cx, p->jsclass, p->proto, p->parentProto);
 	js_proxy_t *pp;
 	JS_NEW_PROXY(pp, cobj, _tmp);
-//#ifdef COCOS2D_JAVASCRIPT
-//	JS_AddObjectRoot(cx, &pp->obj);
-//#endif
 	JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 
 	return JS_TRUE;
@@ -178,7 +169,6 @@ JSBool js_IAPNd91_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp)
 extern JSObject *js_ProtocolIAP_prototype;
 
 void js_IAPNd91_finalize(JSFreeOp *fop, JSObject *obj) {
-//#ifdef COCOS2D_JAVASCRIPT
 	LOGD("js_IAPNd91_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
@@ -187,7 +177,6 @@ void js_IAPNd91_finalize(JSFreeOp *fop, JSObject *obj) {
         JS_GET_PROXY(nproxy, jsproxy->ptr);
         JS_REMOVE_PROXY(nproxy, jsproxy);
     }
-//#endif 
 }
 
 void js_register_pluginx_nd91_IAPNd91(JSContext *cx, JSObject *global) {

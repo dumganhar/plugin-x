@@ -42,13 +42,13 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 		#end if
 		#set $arg_list = ", ".join($arg_array)
 		#if $is_constructor
-				${namespaced_class_name}* cobj = new ${namespaced_class_name}($arg_list);
-//\#ifdef COCOS2D_JAVASCRIPT
-//		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
-//		if (_ccobj) {
-//			_ccobj->autorelease();
-//		}
-//\#endif
+		${namespaced_class_name}* cobj = new ${namespaced_class_name}($arg_list);
+#if not $generator.script_control_cpp
+		cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
+		if (_ccobj) {
+			_ccobj->autorelease();
+		}
+#end if
 		TypeTest<${namespaced_class_name}> t;
 		js_type_class_t *typeClass;
 		uint32_t typeId = t.s_id();
@@ -59,9 +59,9 @@ JSBool ${signature_name}(JSContext *cx, uint32_t argc, jsval *vp)
 		// link the native object with the javascript object
 		js_proxy_t *p;
 		JS_NEW_PROXY(p, cobj, obj);
-//\#ifdef COCOS2D_JAVASCRIPT
-//		JS_AddNamedObjectRoot(cx, &p->obj, "${namespaced_class_name}");
-//\#endif
+#if not $generator.script_control_cpp
+		JS_AddNamedObjectRoot(cx, &p->obj, "${namespaced_class_name}");
+#end if
 		#else
 			#if $ret_type.name != "void"
 		${ret_type} ret = cobj->${func_name}($arg_list);

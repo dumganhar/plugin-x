@@ -13,7 +13,7 @@ extern JSObject *js_${current_class.parents[0].class_name}_prototype;
 #end if
 
 void js_${current_class.class_name}_finalize(JSFreeOp *fop, JSObject *obj) {
-//#ifdef COCOS2D_JAVASCRIPT
+#if $generator.script_control_cpp
 	LOGD("js_${current_class.class_name}_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
@@ -22,7 +22,7 @@ void js_${current_class.class_name}_finalize(JSFreeOp *fop, JSObject *obj) {
         JS_GET_PROXY(nproxy, jsproxy->ptr);
         JS_REMOVE_PROXY(nproxy, jsproxy);
     }
-//#endif 
+#end if
 }
 
 void js_register_${generator.prefix}_${current_class.class_name}(JSContext *cx, JSObject *global) {

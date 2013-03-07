@@ -11,12 +11,6 @@ template<class T>
 static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 	TypeTest<T> t;
 	T* cobj = new T();
-//#ifdef COCOS2D_JAVASCRIPT
-	// cocos2d::CCObject *_ccobj = dynamic_cast<cocos2d::CCObject *>(cobj);
-	// if (_ccobj) {
-	// 	_ccobj->autorelease();
-	// }
-//#endif
 	js_type_class_t *p;
 	uint32_t typeId = t.s_id();
 	HASH_FIND_INT(_js_global_type_ht, &typeId, p);
@@ -24,9 +18,6 @@ static JSBool dummy_constructor(JSContext *cx, uint32_t argc, jsval *vp) {
 	JSObject *_tmp = JS_NewObject(cx, p->jsclass, p->proto, p->parentProto);
 	js_proxy_t *pp;
 	JS_NEW_PROXY(pp, cobj, _tmp);
-//#ifdef COCOS2D_JAVASCRIPT
-//	JS_AddObjectRoot(cx, &pp->obj);
-//#endif
 	JS_SET_RVAL(cx, vp, OBJECT_TO_JSVAL(_tmp));
 
 	return JS_TRUE;
@@ -158,7 +149,6 @@ JSBool js_PluginProtocol_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp)
 
 
 void js_PluginProtocol_finalize(JSFreeOp *fop, JSObject *obj) {
-//#ifdef COCOS2D_JAVASCRIPT
 	LOGD("js_PluginProtocol_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
@@ -167,7 +157,6 @@ void js_PluginProtocol_finalize(JSFreeOp *fop, JSObject *obj) {
         JS_GET_PROXY(nproxy, jsproxy->ptr);
         JS_REMOVE_PROXY(nproxy, jsproxy);
     }
-//#endif 
 }
 
 void js_register_pluginx_protocols_PluginProtocol(JSContext *cx, JSObject *global) {
@@ -317,7 +306,6 @@ JSBool js_PluginManager_getInstance(JSContext *cx, uint32_t argc, jsval *vp)
 
 
 void js_PluginManager_finalize(JSFreeOp *fop, JSObject *obj) {
-//#ifdef COCOS2D_JAVASCRIPT
 	LOGD("js_PluginManager_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
@@ -326,7 +314,6 @@ void js_PluginManager_finalize(JSFreeOp *fop, JSObject *obj) {
         JS_GET_PROXY(nproxy, jsproxy->ptr);
         JS_REMOVE_PROXY(nproxy, jsproxy);
     }
-//#endif 
 }
 
 void js_register_pluginx_protocols_PluginManager(JSContext *cx, JSObject *global) {
@@ -665,7 +652,6 @@ JSBool js_ProtocolAnalytics_setDebugMode(JSContext *cx, uint32_t argc, jsval *vp
 extern JSObject *js_PluginProtocol_prototype;
 
 void js_ProtocolAnalytics_finalize(JSFreeOp *fop, JSObject *obj) {
-//#ifdef COCOS2D_JAVASCRIPT
 	LOGD("js_ProtocolAnalytics_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
@@ -674,7 +660,6 @@ void js_ProtocolAnalytics_finalize(JSFreeOp *fop, JSObject *obj) {
         JS_GET_PROXY(nproxy, jsproxy->ptr);
         JS_REMOVE_PROXY(nproxy, jsproxy);
     }
-//#endif 
 }
 
 void js_register_pluginx_protocols_ProtocolAnalytics(JSContext *cx, JSObject *global) {
@@ -901,7 +886,6 @@ JSBool js_ProtocolIAP_payResult(JSContext *cx, uint32_t argc, jsval *vp)
 extern JSObject *js_PluginProtocol_prototype;
 
 void js_ProtocolIAP_finalize(JSFreeOp *fop, JSObject *obj) {
-//#ifdef COCOS2D_JAVASCRIPT
 	LOGD("js_ProtocolIAP_finalize\n");
     js_proxy_t* nproxy;
     js_proxy_t* jsproxy;
@@ -910,7 +894,6 @@ void js_ProtocolIAP_finalize(JSFreeOp *fop, JSObject *obj) {
         JS_GET_PROXY(nproxy, jsproxy->ptr);
         JS_REMOVE_PROXY(nproxy, jsproxy);
     }
-//#endif 
 }
 
 void js_register_pluginx_protocols_ProtocolIAP(JSContext *cx, JSObject *global) {
