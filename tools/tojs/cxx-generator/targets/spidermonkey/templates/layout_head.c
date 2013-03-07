@@ -1,8 +1,6 @@
-\#include "jsapi.h"
-\#include "jsfriendapi.h"
+\#include "${out_file}.hpp"
 \#include "jsb_pluginx_spidermonkey_specifics.h"
 \#include "jsb_pluginx_basic_conversions.h"
-\#include "${out_file}.hpp"
 #for header in $headers
 \#include "${os.path.basename(header)}"
 #end for
