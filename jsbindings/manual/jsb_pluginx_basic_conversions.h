@@ -20,6 +20,7 @@ JSBool jsval_to_long_long(JSContext *cx, jsval v, long long* ret);
 JSBool jsval_to_std_string(JSContext *cx, jsval v, std::string* ret);
 JSBool jsval_to_TProductInfo(JSContext *cx, jsval v, TProductInfo* ret);
 JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret);
+JSBool jsval_to_TPaymentInfo(JSContext *cx, jsval v, std::map<std::string, std::string>* ret);
 JSBool jsval_to_LogEventParamMap(JSContext *cx, jsval v, LogEventParamMap** ret);
 
 // from native

@@ -11,6 +11,7 @@ class JSStringWrapper
 {
     JSString*   string;
     const char* buffer;
+    JSContext* cx;
 public:
     JSStringWrapper() {
         buffer = NULL;
@@ -23,8 +24,9 @@ public:
     }
     ~JSStringWrapper() {
         if (buffer) {
-            delete[] buffer;
-            buffer = NULL;
+            // delete[] buffer;
+            // buffer = NULL;
+            JS_free(cx, (void*)buffer);
         }
     }
     void set(jsval val, JSContext* cx) {
@@ -35,14 +37,15 @@ public:
         }
     }
     void set(JSString* str, JSContext* cx) {
+        this->cx = cx;
         string = str;
         // Not suppored in SpiderMonkey v19
-        //buffer = JS_EncodeString(cx, string);
+        buffer = JS_EncodeString(cx, string);
         
-        const jschar *chars = JS_GetStringCharsZ(cx, string);
-        size_t l = JS_GetStringLength(string);
-        char* pUTF8Str = cc_utf16_to_utf8((const unsigned short*)chars, l, NULL, NULL);
-        buffer = pUTF8Str;
+        // const jschar *chars = JS_GetStringCharsZ(cx, string);
+        // size_t l = JS_GetStringLength(string);
+        // char* pUTF8Str = cc_utf16_to_utf8((const unsigned short*)chars, l, NULL, NULL);
+        // buffer = pUTF8Str;
     }
 
     std::string get() {
@@ -198,6 +201,11 @@ JSBool jsval_to_TDeveloperInfo(JSContext *cx, jsval v, TDeveloperInfo* ret)
     return jsval_to_TProductInfo(cx, v, ret);
 }
 
+JSBool jsval_to_TPaymentInfo(JSContext *cx, jsval v, std::map<std::string, std::string>* ret)
+{
+    return jsval_to_TProductInfo(cx, v, ret);
+}
+
 JSBool jsval_to_LogEventParamMap(JSContext *cx, jsval v, LogEventParamMap** ret)
 {
     JSBool jsret = JS_FALSE;
@@ -238,12 +246,12 @@ jsval long_to_jsval(JSContext* cx, long v)
 }
 
 jsval std_string_to_jsval(JSContext* cx, std::string& v) {
-    //JSString *str = JS_NewStringCopyZ(cx, v.c_str());
+    JSString *str = JS_NewStringCopyZ(cx, v.c_str());
     jsval rval;
-    unsigned short* pUTF16 = cc_utf8_to_utf16(v.c_str());
-    JSString *str = JS_NewUCStringCopyZ(cx, pUTF16);
+    // unsigned short* pUTF16 = cc_utf8_to_utf16(v.c_str());
+    // JSString *str = JS_NewUCStringCopyZ(cx, pUTF16);
     rval = STRING_TO_JSVAL(str);
-    delete[] pUTF16;
+    // delete[] pUTF16;
     return rval;
 }
 
