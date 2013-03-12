@@ -1,6 +1,20 @@
 #!/bin/bash
 
-OUTPUT_FILENAME="jsb_cocos2dx_other_auto"
+if [ -z $1 ]; then
+    echo "*** Please pass an argument which means plugin name. ***"
+    exit 1
+fi
+
+PLUGIN_NAME="$1"
+INI_NAME="jsb_$PLUGIN_NAME.ini"
+OUTPUT_FILENAME="jsb_pluginx_"$PLUGIN_NAME"_auto"
+
+echo "--------------"
+echo "plugin name: $PLUGIN_NAME"
+echo "ini filename: $INI_NAME"
+echo "output filename: $OUTPUT_FILENAME"
+echo "--------------"
+
 # exit this script if any commmand fails
 set -e
 
@@ -67,7 +81,6 @@ _CONTENTS=""
 _CONTENTS+="[DEFAULT]"'\n'
 _CONTENTS+="androidndkdir=$NDK_ROOT"'\n'
 _CONTENTS+="clangllvmdir=$CLANG_ROOT"'\n'
-_CONTENTS+="cocosdir=$PLUGINX_ROOT/.."'\n'
 _CONTENTS+="pluginxdir=$PLUGINX_ROOT"'\n'
 _CONTENTS+="cxxgeneratordir=$CXX_GENERATOR_ROOT"'\n'
 echo 
@@ -77,13 +90,13 @@ echo -e "$_CONTENTS"
 echo -e "$_CONTENTS" > "$_CONF_INI_FILE"
 echo ---
 
-# Generate bindings for cocos2dx others
-echo "Generating bindings for cocos2dx others..."
+# Generate bindings for plugin-x $PLUGIN_NAME
+echo "Generating bindings for plugin-x $PLUGIN_NAME..."
 set -x
 mv $CXX_GENERATOR_ROOT/targets/spidermonkey/conversions.yaml $CXX_GENERATOR_ROOT/targets/spidermonkey/conversions.yaml.backup
 cp conversions.yaml $CXX_GENERATOR_ROOT/targets/spidermonkey
 
-LD_LIBRARY_PATH=${CLANG_ROOT}/lib $PYTHON_BIN ${CXX_GENERATOR_ROOT}/generator.py ${PLUGINX_ROOT}/tools/tojs/jsb_cocos2dx_others.ini -s cocos2dx_other -o $PLUGINX_ROOT/jsbindings/auto -n $OUTPUT_FILENAME
+LD_LIBRARY_PATH=${CLANG_ROOT}/lib $PYTHON_BIN ${CXX_GENERATOR_ROOT}/generator.py ${PLUGINX_ROOT}/$PLUGIN_NAME/$INI_NAME -s $PLUGIN_NAME -o $PLUGINX_ROOT/jsbindings/auto -n $OUTPUT_FILENAME
 
 mv $CXX_GENERATOR_ROOT/targets/spidermonkey/conversions.yaml.backup $CXX_GENERATOR_ROOT/targets/spidermonkey/conversions.yaml
 
@@ -92,7 +105,5 @@ mv $CXX_GENERATOR_ROOT/targets/spidermonkey/conversions.yaml.backup $CXX_GENERAT
 # #include "jsb_pluginx_spidermonkey_specifics.h"
 # #include "jsb_pluginx_basic_conversions.h"
 
-
 ./modify_include.sed $PLUGINX_ROOT/jsbindings/auto/$OUTPUT_FILENAME.cpp > $PLUGINX_ROOT/jsbindings/auto/$OUTPUT_FILENAME.cpp.origin
 mv $PLUGINX_ROOT/jsbindings/auto/$OUTPUT_FILENAME.cpp.origin $PLUGINX_ROOT/jsbindings/auto/$OUTPUT_FILENAME.cpp
-
